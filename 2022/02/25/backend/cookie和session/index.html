@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Cookie &amp; Session | georgexia</title><meta name="author" content="georgexia"><meta name="copyright" content="georgexia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="状态保持浏览器请求服务器是无状态的 无状态：指一次用户请求时，浏览器、服务器无法知道之前这个用户做过什么，每次请求都是一次全新的请求 无状态原因：浏览器与服务器是使用socket套接字是进行通信的，服务器请求结果返回浏览器之后，会关闭当前socket连接，而且服务器也会在处理页面完毕之后销毁页面对象 有时候需要保持下来用户浏览的状态，比如用户是否登陆过，浏览过那些商品 实现状态保持的两种方式： 在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cookie &amp; Session">
+<meta property="og:url" content="http://example.com/2022/02/25/backend/cookie%E5%92%8Csession/index.html">
+<meta property="og:site_name" content="georgexia">
+<meta property="og:description" content="状态保持浏览器请求服务器是无状态的 无状态：指一次用户请求时，浏览器、服务器无法知道之前这个用户做过什么，每次请求都是一次全新的请求 无状态原因：浏览器与服务器是使用socket套接字是进行通信的，服务器请求结果返回浏览器之后，会关闭当前socket连接，而且服务器也会在处理页面完毕之后销毁页面对象 有时候需要保持下来用户浏览的状态，比如用户是否登陆过，浏览过那些商品 实现状态保持的两种方式： 在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpeg">
+<meta property="article:published_time" content="2022-02-25T06:37:20.000Z">
+<meta property="article:modified_time" content="2024-03-16T04:01:25.723Z">
+<meta property="article:author" content="georgexia">
+<meta property="article:tag" content="Cookie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/02/25/backend/cookie%E5%92%8Csession/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Cookie & Session',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-16 12:01:25'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="georgexia"><span class="site-name">georgexia</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Cookie &amp; Session</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-25T06:37:20.000Z" title="发表于 2022-02-25 14:37:20">2022-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-16T04:01:25.723Z" title="更新于 2024-03-16 12:01:25">2024-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E8%83%BD/">后端技能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">990</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span></div></div></div><article class="post-content" id="article-container"><h1 id="状态保持"><a href="#状态保持" class="headerlink" title="状态保持"></a>状态保持</h1><p>浏览器请求服务器是无状态的</p>
+<p>无状态：指一次用户请求时，浏览器、服务器无法知道之前这个用户做过什么，每次请求都是一次全新的请求</p>
+<p>无状态原因：浏览器与服务器是使用socket套接字是进行通信的，服务器请求结果返回浏览器之后，会关闭当前socket连接，而且服务器也会在处理页面完毕之后销毁页面对象</p>
+<p>有时候需要保持下来用户浏览的状态，比如用户是否登陆过，浏览过那些商品</p>
+<p>实现状态保持的两种方式：</p>
+<p>在客户端存储信息使用cookie</p>
+<p>在服务器存储信息使用session</p>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><h4 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h4><p>保存在客户端的数据叫做cookie  状态保持的一种方式</p>
+<p><strong>cookie是基于域名（IP）的</strong></p>
+<h4 id="2、流程（原理）"><a href="#2、流程（原理）" class="headerlink" title="2、流程（原理）"></a>2、流程（原理）</h4><p>第一次请求过程</p>
+<p>①我们浏览器第一次请求服务器的时候，不会携带任何cookie信息</p>
+<p>② 服务器接收请求之后，发现请求中没有任何cookie信息</p>
+<p>③服务器设置一个cookie，这个cookie设置在<strong>响应</strong>中</p>
+<p>④我们的浏览器接收到这个响应之后，发现响应中有cookie信息，浏览器会将cookie信息保存起来</p>
+<p>第二次以及之后的请求过程</p>
+<p>⑤当我们的浏览器第二次以及之后的请求都会携带cookie信息</p>
+<p>⑥我们的服务器接收到请求之后，会发现请求中携带cookie信息，这样的话就认识是谁发出的请求 </p>
+<h4 id="从http原理角度的流程"><a href="#从http原理角度的流程" class="headerlink" title="从http原理角度的流程"></a><strong>从http原理角度的流程</strong></h4><p>1、我们第一次去请求服务器的时候，没有携带任何cookie信息，cookie信息是在请求头中携带的</p>
+<p>2、我们的服务器在响应中设置了cookie，在响应头中发现了set_cookie信息</p>
+<p>3、第二次及其之后的请求都会携带cookie信息，cookie信息是在请求头中携带的，同时响应头中不会再次携带cookie信息</p>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><h4 id="1、概念-1"><a href="#1、概念-1" class="headerlink" title="1、概念"></a>1、概念</h4><p>保存在服务器端的数据叫做session</p>
+<p><strong>session需要依赖于cookie</strong></p>
+<p>如果浏览器禁用了cookie，则session不能实现</p>
+<h4 id="2、流程"><a href="#2、流程" class="headerlink" title="2、流程"></a>2、流程</h4><p>第一次请求</p>
+<p>①第一次请求的时候可以携带一些信息（用户名&#x2F;密码），cookie中没有任何信息</p>
+<p>②当我们的服务器接收到这个请求之后，进行用户名和密码的校验，如果没有问题，可以设置session信息</p>
+<p>③在设置session信息的同时，服务器会在响应头中设置一个叫做sessionid的cookie信息（由服务器自己设置的）</p>
+<p>④客户端（浏览器）在接收到响应之后，会将cookie信息保存起来（保存sessionid的信息）</p>
+<p>第二次以及之后的请求 </p>
+<p>⑤第二次及其之后的请求都会携带sessionid信息</p>
+<p>⑥当服务器接收到这个请求之后，会获取到sessionid信息，然后进行验证，验证成功则可以获取session信息（session信息是保存在服务器端的）</p>
+<h4 id="从http原理角度的流程-1"><a href="#从http原理角度的流程-1" class="headerlink" title="从http原理角度的流程"></a><strong>从http原理角度的流程</strong></h4><p>1、第一次请求时没有任何cookie信息的</p>
+<p>设置session的时候服务器做了两件事</p>
+<p>①将session保存在数据库中</p>
+<p>②将设置sessionid为key的cookie响应给浏览器</p>
+<p>2、响应中，在响应头中有session设置的cookie信息，cookie信息是以sessionid为key的数据</p>
+<p>3、第二次及其之后的请求都回携带cookie信息，cookie信息中有一项是sessionid cookie信息在请求头中</p>
+<h4 id="session相关问题"><a href="#session相关问题" class="headerlink" title="session相关问题"></a>session相关问题</h4><p>问题1：换了浏览器还能获取到session信息吗</p>
+<p>回答：<strong>session是需要依赖于cookie的</strong>，换了浏览器之后就没有sessionid的这条cookie</p>
+<p>所以不能获取到session信息</p>
+<p>问题2：不换浏览器删除sessionid 则获取不到session数据</p>
+<p>问题3：再去执行set_session 会重新生成sessionid</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">georgexia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/02/25/backend/cookie%E5%92%8Csession/">http://example.com/2022/02/25/backend/cookie%E5%92%8Csession/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">georgexia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Cookie/">Cookie</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/12/python/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="面向对象知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">面向对象知识</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/25/front/%E8%B7%A8%E5%9F%9F/" title="跨域问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">跨域问题</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">georgexia</div><div class="author-info__description">guard against arrogance</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">welcome to my blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E4%BF%9D%E6%8C%81"><span class="toc-number">1.</span> <span class="toc-text">状态保持</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#cookie"><span class="toc-number">1.1.</span> <span class="toc-text">cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1、概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E6%B5%81%E7%A8%8B%EF%BC%88%E5%8E%9F%E7%90%86%EF%BC%89"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2、流程（原理）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8Ehttp%E5%8E%9F%E7%90%86%E8%A7%92%E5%BA%A6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">从http原理角度的流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session"><span class="toc-number">1.2.</span> <span class="toc-text">session</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5-1"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">1、概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">2、流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8Ehttp%E5%8E%9F%E7%90%86%E8%A7%92%E5%BA%A6%E7%9A%84%E6%B5%81%E7%A8%8B-1"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">从http原理角度的流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#session%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">session相关问题</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/12/backend/RabbitMQ/" title="RabbitMQ">RabbitMQ</a><time datetime="2024-01-12T07:39:20.000Z" title="发表于 2024-01-12 15:39:20">2024-01-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/python/django%E5%9B%BD%E9%99%85%E5%8C%96/" title="django-translation插件">django-translation插件</a><time datetime="2023-12-25T06:37:20.000Z" title="发表于 2023-12-25 14:37:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/25/front/ant-design-vue3/" title="ant-design-vue">ant-design-vue</a><time datetime="2023-08-25T09:42:10.000Z" title="发表于 2023-08-25 17:42:10">2023-08-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/25/front/NodeJS/" title="NodeJS知识">NodeJS知识</a><time datetime="2023-06-25T14:17:12.000Z" title="发表于 2023-06-25 22:17:12">2023-06-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/20/front/ES6/" title="ES6知识">ES6知识</a><time datetime="2023-06-20T10:37:10.000Z" title="发表于 2023-06-20 18:37:10">2023-06-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By georgexia</div><div class="footer_custom_text">Hi,  welcome to my blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

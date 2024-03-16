@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Redis数据库 | georgexia</title><meta name="author" content="georgexia"><meta name="copyright" content="georgexia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="redis数据库 高速缓存技术 内存的读取速度远远大于硬盘 内存断电 数据丢失  需要在硬盘上备份 利用缓存优化数据读写  Redis简介Redis是美国Vmware公司开源的NoSQL数据库产品，基于Key-Value存储格式，可以将数据保存在内存或者硬盘中 持久化  支持网络 Redis高性能、Redis是单线程模型的NoSQL数据库，由c语言编写，官方提供的数据是可以达到100000+的QP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis数据库">
+<meta property="og:url" content="http://example.com/2022/07/15/db/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="georgexia">
+<meta property="og:description" content="redis数据库 高速缓存技术 内存的读取速度远远大于硬盘 内存断电 数据丢失  需要在硬盘上备份 利用缓存优化数据读写  Redis简介Redis是美国Vmware公司开源的NoSQL数据库产品，基于Key-Value存储格式，可以将数据保存在内存或者硬盘中 持久化  支持网络 Redis高性能、Redis是单线程模型的NoSQL数据库，由c语言编写，官方提供的数据是可以达到100000+的QP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpeg">
+<meta property="article:published_time" content="2022-07-15T02:28:20.000Z">
+<meta property="article:modified_time" content="2024-03-16T04:13:29.124Z">
+<meta property="article:author" content="georgexia">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/07/15/db/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Redis数据库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-16 12:13:29'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="georgexia"><span class="site-name">georgexia</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Redis数据库</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-15T02:28:20.000Z" title="发表于 2022-07-15 10:28:20">2022-07-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-16T04:13:29.124Z" title="更新于 2024-03-16 12:13:29">2024-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span></div></div></div><article class="post-content" id="article-container"><h3 id="redis数据库"><a href="#redis数据库" class="headerlink" title="redis数据库"></a>redis数据库</h3><ol>
+<li>高速缓存技术</li>
+<li>内存的读取速度远远大于硬盘</li>
+<li>内存断电 数据丢失  需要在硬盘上备份</li>
+<li>利用缓存优化数据读写</li>
+</ol>
+<h3 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h3><p>Redis是美国Vmware公司开源的NoSQL数据库产品，基于Key-Value存储格式，可以将数据保存在内存或者硬盘中 持久化  支持网络</p>
+<p>Redis高性能、Redis是单线程模型的NoSQL数据库，由c语言编写，官方提供的数据是可以达到100000+的QPS（每秒内查询次数）</p>
+<h3 id="Redis的持久化"><a href="#Redis的持久化" class="headerlink" title="Redis的持久化"></a>Redis的持久化</h3><p>为了防止意外宕机丢失数据，Redis提供了两种持久化方式，两种向硬盘保存数据的方案</p>
+<ol>
+<li>RDB 定期将内存中数据保存在硬盘中</li>
+<li>AOF 以日志的方式记录redis数据的写入</li>
+</ol>
+<h4 id="Redis的五种数据类型"><a href="#Redis的五种数据类型" class="headerlink" title="Redis的五种数据类型"></a>Redis的五种数据类型</h4><ol>
+<li>字符串类型</li>
+<li>哈希类型</li>
+<li>列表类型</li>
+<li>集合类型</li>
+<li>有序集合类型</li>
+</ol>
+<h4 id="1、字符串类型-string"><a href="#1、字符串类型-string" class="headerlink" title="1、字符串类型(string)"></a>1、字符串类型(string)</h4><p>string类型既可以保存普通文字，也可以保存序列化的二进制数据，string类型最大可以存储512M数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">// 常规str指令</span><br><span class="line">SET email scott@163.com   存在则修改 不存在则创建</span><br><span class="line">get email</span><br><span class="line">del email</span><br><span class="line"></span><br><span class="line">// GETRANGE：获得截取字符串内容</span><br><span class="line">GETRANGE email 0 3  (0起始位置 3 结束位置 4个字符)</span><br><span class="line"></span><br><span class="line">// STRLEN：获取字符串长度</span><br><span class="line">STRLEN email</span><br><span class="line"></span><br><span class="line">// SETEX：设置带有过期时间(s)的key-value</span><br><span class="line">SETEX city 5 Beijing</span><br><span class="line"></span><br><span class="line">// PSETEX：设置带有过期时间(ms)的key-value</span><br><span class="line">PSETEX city 5 Beijing</span><br><span class="line"></span><br><span class="line">// MSET：设置多个key-values</span><br><span class="line">MSET username scott sex male</span><br><span class="line"></span><br><span class="line">// MGET：获得多个VALUES</span><br><span class="line">MGET username sex</span><br><span class="line"></span><br><span class="line">// APPEND：用于在字符串结尾追加内容</span><br><span class="line">SET temp ABCD</span><br><span class="line">APPEND temp 1234</span><br><span class="line"></span><br><span class="line">// INCR(increase 增加)：数字自增加1</span><br><span class="line">INCR num</span><br><span class="line"></span><br><span class="line">// INCRBY(increase by)：数字加上指定的整数值</span><br><span class="line">INCRBY num 25</span><br><span class="line"></span><br><span class="line">// INCRBYFLOAT(increase by float 增加浮点数)：数字加上指定的浮点数</span><br><span class="line">INCRBYFLOAT num 3.5</span><br><span class="line"></span><br><span class="line">// DECR(decrease 减少)：数字自增减1</span><br><span class="line">DECR num</span><br><span class="line"></span><br><span class="line">// DECRBY(decrease by)：数字减去指定值</span><br><span class="line">DECRBY num 25</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、哈希类型-hash"><a href="#2、哈希类型-hash" class="headerlink" title="2、哈希类型(hash)"></a>2、哈希类型(hash)</h4><ul>
+<li>当我们需要保存更复杂的结构化数据时，用字符串类型不太合适，这时候可以使用哈希类型</li>
+<li>数据结构：key —&gt; value（姓名，年龄，性别，电话）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// HSET (HASH SET)：设置哈希字段</span><br><span class="line">HSET 8000 ename Tom</span><br><span class="line">HSET 8000 job SALESMAN</span><br><span class="line"></span><br><span class="line">// HMSET (HASH MSET)：设置多个字段</span><br><span class="line">HMSET 8000 ename Tom job SALESMAN deptno 10</span><br><span class="line"></span><br><span class="line">// HGET (HASH GET)：获取哈希表字段值</span><br><span class="line">HGET 8000 ename</span><br><span class="line"></span><br><span class="line">// HMGET (HASH MGET)：获得多个哈希表字段值</span><br><span class="line">HMGET 8000 ename job deptno</span><br><span class="line"></span><br><span class="line">// HGETALL (HASH GET ALL)：获得所有哈希表内容(包括字段和值)</span><br><span class="line">HGETALL 8000</span><br><span class="line"></span><br><span class="line">// HKEYS：获得所有哈希表字段名</span><br><span class="line">HKEYS 8000</span><br><span class="line"></span><br><span class="line">// HLEN：哈希表中的字段数量</span><br><span class="line">HLEN 8000</span><br><span class="line"></span><br><span class="line">// HEXISTS (HASH EXISTS)：判断哈希表是否存在某个字段</span><br><span class="line">HEXISTS 8000 job</span><br><span class="line"></span><br><span class="line">//HVALS (HASH VALUES)：获得哈希表所有字段值</span><br><span class="line">HVALS 8000</span><br><span class="line"></span><br><span class="line">// HDEL (HASH DELETE)：删除哈希表的字段</span><br><span class="line">HDEL 8000 job deptno</span><br><span class="line"></span><br><span class="line">// HINCRBY (HASH INCREASE BY)：让哈希表某个字段值加上指定的整数值</span><br><span class="line">HINCRBY 8000 deptno 10</span><br><span class="line"></span><br><span class="line">// HINCRBYFLOAT (HASH INCREASE BY FLOAT)：让哈希表某个字段值+指定浮点数</span><br><span class="line">HINCRBYFLOAT 8000 sal 350.5</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、列表类型-list"><a href="#3、列表类型-list" class="headerlink" title="3、列表类型(list)"></a>3、列表类型(list)</h4><p>当我们需要向VALUE保存序列化的数据，可以使用列表类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">// RPUSH (right) (向列表最右侧添加数据)</span><br><span class="line">RPUSH dname 技术部 后勤部 售后部</span><br><span class="line"></span><br><span class="line">// LPUSH (lift) (向列表最左侧添加数据)</span><br><span class="line">LPUSH dname 秘书处</span><br><span class="line"></span><br><span class="line">// LSET (list set) (替换列表中某个值)</span><br><span class="line">LSET dname 2 销售处 </span><br><span class="line"></span><br><span class="line">// LRANGE (LIST RANGE) (显示范围内的数据)</span><br><span class="line">LRANGE dname 0 -1</span><br><span class="line"></span><br><span class="line">// LLEN（list length）：获取列表长度</span><br><span class="line">LLEN dname</span><br><span class="line"></span><br><span class="line">// LINDEX（list index）：获取列表某个元素</span><br><span class="line">LINDEX dname 0</span><br><span class="line"></span><br><span class="line">// LINSERT（list insert）：在某个位置插入元素</span><br><span class="line">LINSERT dname BEFORE/AFTER  秘书处 董事会</span><br><span class="line"></span><br><span class="line">// LPOP（list pop）：删除列表最左侧的元素</span><br><span class="line">LPOP dname</span><br><span class="line"></span><br><span class="line">// RPOP（right pop）：删除列表最右侧的元素</span><br><span class="line">RPOP dname</span><br><span class="line"></span><br><span class="line">// LREM（list remove）：删除列表某个元素 （不能传入索引序号）</span><br><span class="line">RPUSH employee Scott</span><br><span class="line">RPUSH employee tom</span><br><span class="line">RPUSH employee Scott （列表中数据可以重复）</span><br><span class="line">LREM employee 1 Scott（删除列表中第一个scott）</span><br><span class="line"></span><br><span class="line">// flushdb 用于清空当前逻辑库的内容</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、集合类型-set"><a href="#4、集合类型-set" class="headerlink" title="4、集合类型(set)"></a>4、集合类型(set)</h4><ul>
+<li>如果我们需要的列表中元素不可以重复，可以使用集合类型</li>
+<li>集合类型中的元素是没有索引序号的，按哈希值大小进行排序</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// SADD 创建集合</span><br><span class="line">SADD empno 8000</span><br><span class="line">SADD empno 8001</span><br><span class="line">SADD empno 8002</span><br><span class="line"></span><br><span class="line">// SMEMBERS：获取集合中的元素  无序</span><br><span class="line">SMEMBERS empno</span><br><span class="line"></span><br><span class="line">// SCARD（set card）：获取集合长度</span><br><span class="line">SCARD empno</span><br><span class="line"></span><br><span class="line">// SISMEMBER（set is member）：判断是否含有某个元素</span><br><span class="line">SISMEMBER empno 8000</span><br><span class="line"></span><br><span class="line">// SREM（set remove）：删除元素</span><br><span class="line">SREM empno 8000 8001</span><br><span class="line"></span><br><span class="line">// SPOP：随机删除并返回集合的某个元素</span><br><span class="line">SPOP empno</span><br><span class="line"></span><br><span class="line">// SRANDMEMBER：随机返回集合中的元素</span><br><span class="line">SRANDMEMBER empno 5  （从empno中随机返回5个元素）</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、有序集合类型-zset-（微博热搜）"><a href="#5、有序集合类型-zset-（微博热搜）" class="headerlink" title="5、有序集合类型(zset)（微博热搜）"></a>5、有序集合类型(zset)（微博热搜）</h4><p>有序集合是带有排序功能集合，Redis会按照元素分数值排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">// ZADD：向集合中添加元素</span><br><span class="line">ZADD keyword 0 “鹿晗” 0 “张朝阳” 0 “马云”  </span><br><span class="line"></span><br><span class="line">ZADD score 0 xiaoxia 0 xiaosheng 0 xiaowang  </span><br><span class="line"></span><br><span class="line">// ZINCRBY：给元素增加指定数据</span><br><span class="line">ZINCRBY keyboard 1 ”鹿晗“   </span><br><span class="line">ZINCRBY keyboard 5 “马云”</span><br><span class="line">ZINCRBY keyboard 2 “张朝阳”</span><br><span class="line"></span><br><span class="line">REV：revere 翻转  颠倒</span><br><span class="line">ZRANGE keyboard 0 -1 ：升序</span><br><span class="line"></span><br><span class="line">// ZCARD：获取有序集合长度</span><br><span class="line">ZCARD keyword</span><br><span class="line"></span><br><span class="line">// ZCOUNT：查询某个分数区间内的元素数量</span><br><span class="line">ZCOUNT keyword 5 10     （统计分数值在5到10之间元素的数量）</span><br><span class="line"></span><br><span class="line">// ZSCORE：返回元素的分数值</span><br><span class="line">ZSCORE keyword &quot;马云&quot;</span><br><span class="line"></span><br><span class="line">// ZRANGE：获得有序集合的内容（升序）</span><br><span class="line">ZRANGE keyboard 0 -1</span><br><span class="line"></span><br><span class="line">// ZREVRANGE：获取有序集合的内容（降序）</span><br><span class="line">ZREVRANGE keyboard 0 -1</span><br><span class="line"></span><br><span class="line">// ZRANGEBYSCORE：获得分数值区间内的集合内容（升序）</span><br><span class="line">ZRANGEBYSCORE keyboard 5 10 查询 5到10之间的内容</span><br><span class="line">ZRANGEBYSCORE keyboard 5   (10  （表示不包括10）</span><br><span class="line">ZRANGEBYSCORE keyboard 100000 +inf </span><br><span class="line"></span><br><span class="line">+inf 表示正无穷   -inf表示负无穷</span><br><span class="line"></span><br><span class="line">// ZREVRANGEBYSCORE：获得分数值区间内的集合内容（降序）</span><br><span class="line">ZREVRANGEBYSCORE keyboard 10 5</span><br><span class="line"></span><br><span class="line">// ZRANK：获得元素升序排名顺序（从0开始）</span><br><span class="line">ZRANK keyboard &quot;马云&quot;</span><br><span class="line"></span><br><span class="line">// ZREVRANK：获得元素的降序排名（从0开始）</span><br><span class="line">ZREVRANK keyboard &quot;马云&quot;</span><br><span class="line"></span><br><span class="line">// ZREM：删除有序集合中的元素</span><br><span class="line">ZREM keyboard &quot;马云&quot; &quot;张朝阳&quot;</span><br><span class="line"></span><br><span class="line">// ZREMRANGEBYRANK：删除排名区间内的元素</span><br><span class="line">ZREMRANGEBYBANK keyboard 0 2</span><br><span class="line"></span><br><span class="line">// ZREMRANGEBYSCORE：删除分数值区间内的元素</span><br><span class="line">ZREMRANGEBYSCORE keyboard -inf (5000</span><br></pre></td></tr></table></figure>
+
+<h3 id="Key命令"><a href="#Key命令" class="headerlink" title="Key命令"></a>Key命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// DEL：删除记录</span><br><span class="line">DEL keyword</span><br><span class="line"></span><br><span class="line">// EXISTS：判断是否存在某个Key</span><br><span class="line">EXISTS employee</span><br><span class="line"></span><br><span class="line">// EXPIRE(expire（失效，到期）)：设置记录过期时间 （多长时间后过期）</span><br><span class="line">EXPIRE employee 5   （5s后记录自动销毁）</span><br><span class="line"></span><br><span class="line">// EXPIREAT：设置记录的过期时间（UNIX时间戳）（设置一个过期的时间点）</span><br><span class="line">UNIX时间戳 距离1970年1月1日0:00转换成s的时间</span><br><span class="line"></span><br><span class="line">// PEXPIREAT：时间戳变成毫秒ms     1s=1000ms</span><br><span class="line"></span><br><span class="line">//MOVE：把记录迁移到其他逻辑库</span><br><span class="line">MOVE keyword 1</span><br><span class="line"></span><br><span class="line">// RENAME：修改Key名称</span><br><span class="line">RENAME employee tmp</span><br><span class="line"></span><br><span class="line">// 切换到1号逻辑库</span><br><span class="line">select 1  </span><br><span class="line"></span><br><span class="line">// 移除过期时间</span><br><span class="line">PERSIST：</span><br><span class="line">PERSIST keyword</span><br><span class="line"></span><br><span class="line">// TYPE：判断VALUE数据类型</span><br><span class="line">TYPE keyword</span><br></pre></td></tr></table></figure>
+
+<h3 id="Redis为什么要引入事务机制"><a href="#Redis为什么要引入事务机制" class="headerlink" title="Redis为什么要引入事务机制"></a>Redis为什么要引入事务机制</h3><p>Redis是异步单线程执行，也就是一个线程对应所有的客户端。那个客户端上传命令，线程就会被执行，所以不能保证一个客户端的多个命令，不被其他客户端命令插队</p>
+<h3 id="Redis事务的特点"><a href="#Redis事务的特点" class="headerlink" title="Redis事务的特点"></a>Redis事务的特点</h3><ul>
+<li><p>Redis的事务跟数据库的事务是有明显差异的，它不满足数据库事务的ACID属性。</p>
+</li>
+<li><p>Redis的事务更像是批处理执行</p>
+</li>
+<li><p>一致性、隔离性</p>
+</li>
+</ul>
+<h3 id="如何保持事务的一致性？"><a href="#如何保持事务的一致性？" class="headerlink" title="如何保持事务的一致性？"></a>如何保持事务的一致性？</h3><p>为了保证事务的一致性，在开启事务之前必须要用WATCH命令见识要操作的记录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; WATCH kill_num kill_user</span><br></pre></td></tr></table></figure>
+
+<p>如果有其他客户端修改被监视的事务，则该事务会自动关闭</p>
+<h3 id="如何开启事务？"><a href="#如何开启事务？" class="headerlink" title="如何开启事务？"></a>如何开启事务？</h3><p>利用MULTI命令可以开启一个事务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; MULTI</span><br></pre></td></tr></table></figure>
+
+<p>开启事务后的所有操作都不会立即执行，只有执行EXEC命令的时候才会批处理执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; INCR kill_num</span><br><span class="line">redis&gt; RPUSH kill_user 9502</span><br><span class="line">redis&gt; EXEC</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何取消事务？"><a href="#如何取消事务？" class="headerlink" title="如何取消事务？"></a>如何取消事务？</h3><ul>
+<li><p>redis并没有事务的回滚机制，所以不能保证事务的原子性</p>
+</li>
+<li><p>事务在没有提交执行前，是可以取消事务的。如果事务已经提交执行，就无法取消了</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; MULTI</span><br><span class="line">redis&gt; ......</span><br><span class="line">redis&gt; DISCARD</span><br></pre></td></tr></table></figure>
+
+<h3 id="Redis与python交互"><a href="#Redis与python交互" class="headerlink" title="Redis与python交互"></a>Redis与python交互</h3><p>redis-py模块</p>
+<p>创建连接池</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import redis</span><br><span class="line"></span><br><span class="line">pool = redis.ConnectionPool(</span><br><span class="line">    host = &quot;localhost&quot;,</span><br><span class="line">    port = 6379,</span><br><span class="line">    password = &quot;dx991108..&quot;,</span><br><span class="line">    db = 0,</span><br><span class="line">    max_connections = 20</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>连接池的使用以及关闭</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from redis_db import pool</span><br><span class="line">import redis</span><br><span class="line"></span><br><span class="line"># 从连接池冲获取连接</span><br><span class="line">con = redis.Redis(    </span><br><span class="line">    connection_pool=pool</span><br><span class="line">)</span><br><span class="line">try:</span><br><span class="line">    con.delete(&quot;country&quot;,&quot;city&quot;)</span><br><span class="line">    con.mset(&#123;&quot;country&quot;:&quot;德国&quot;,&quot;city&quot;:&quot;柏林&quot;&#125;) # 使用mset的方式和字典相同</span><br><span class="line">    result = con.mget(&quot;country&quot;,&quot;city&quot;)</span><br><span class="line">    for one in result:</span><br><span class="line">        print(one.decode(&quot;utf-8&quot;))</span><br><span class="line">except Exception as e:</span><br><span class="line">    print(e)</span><br><span class="line">finally:</span><br><span class="line">    del con  # 回收连接</span><br></pre></td></tr></table></figure>
+
+<p>操作指令（一）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">con.set(&quot;country&quot;,&quot;英国&quot;)</span><br><span class="line">con.set(&quot;city&quot;,&quot;伦敦&quot;)</span><br><span class="line">#city = con.get(&quot;city&quot;).decode(&quot;utf-8&quot;)</span><br><span class="line">con.expire(&quot;city&quot;,5)</span><br><span class="line">time.sleep(6)</span><br><span class="line">city = con.get(&quot;city&quot;).decode(&quot;utf-8&quot;)</span><br><span class="line">print(city)</span><br></pre></td></tr></table></figure>
+
+<p>操作指令（二）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">con.delete(&quot;country&quot;,&quot;city&quot;)</span><br><span class="line">con.mset(&#123;&quot;country&quot;:&quot;德国&quot;,&quot;city&quot;:&quot;柏林&quot;&#125;) # 使用mset的方式和字典相同</span><br><span class="line">result = con.mget(&quot;country&quot;,&quot;city&quot;)</span><br><span class="line">for one in result:</span><br><span class="line">    print(one.decode(&quot;utf-8&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>操作指令（三）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 列表操作</span><br><span class="line">con.rpush(&quot;dname&quot;, &quot;董事会&quot;, &quot;秘书处&quot;, &quot;财务部&quot;, &quot;技术部&quot;)</span><br><span class="line">con.lpop(&quot;dname&quot;)</span><br><span class="line">result = con.lrange(&quot;dname&quot;, 0, -1)</span><br><span class="line">for one in result:</span><br><span class="line">    print(one.decode(&quot;utf-8&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>操作指令（四）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">con.sadd(&quot;employee&quot;, 8001, 8002, 8003)</span><br><span class="line">con.srem(&quot;employee&quot;, 8002)</span><br><span class="line">result = con.smembers(&quot;employee&quot;)</span><br><span class="line">for one in result:</span><br><span class="line">    print(one.decode(&quot;utf-8&quot;))</span><br><span class="line"># redis-py有序集合的创建和redis客户端时的创建有所不同</span><br><span class="line"># 在py模块中value的方式也是字典方式 并且在这里 名字在前 分数在后</span><br><span class="line"># 而在redis客户端中 分数在前 名字在后</span><br><span class="line">con.zadd(&quot;keyword&quot;, &#123;&quot;马云&quot;: 0, &quot;张朝阳&quot;: 0, &quot;丁磊&quot;: 0&#125;)</span><br><span class="line">con.zincrby(&quot;keyword&quot;, 10, &quot;马云&quot;)</span><br><span class="line">result = con.zrevrange(&quot;keyword&quot;, 0, -1)</span><br><span class="line">for one in result:</span><br><span class="line">    print(one.decode(&quot;utf-8&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>操作指令（五）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">con.hmset(&quot;9527&quot;, &#123;&quot;name&quot;: &quot;scott&quot;, &quot;sex&quot;: &quot;male&quot;, &quot;age&quot;: 35&#125;)</span><br><span class="line">con.hset(&quot;9527&quot;, &quot;city&quot;, &quot;纽约&quot;)</span><br><span class="line">con.hdel(&quot;9527&quot;, &quot;age&quot;)</span><br><span class="line">result = con.hexists(&quot;9527&quot;, &quot;name&quot;)</span><br><span class="line">print(result)</span><br><span class="line">result = con.hgetall(&quot;9527&quot;)</span><br><span class="line">for one in result:</span><br><span class="line">    print(one.decode(&quot;utf-8&quot;), result[one].decode(&quot;utf-8&quot;))</span><br></pre></td></tr></table></figure>
+
+<h3 id="redis-py的事务函数"><a href="#redis-py的事务函数" class="headerlink" title="redis-py的事务函数"></a>redis-py的事务函数</h3><p>redis-py模块用pipline（管道）的方式想redis服务器传递批处理命令和执行事务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from redis_db import pool</span><br><span class="line">import redis</span><br><span class="line"></span><br><span class="line">con = redis.Redis(</span><br><span class="line">    connection_pool=pool</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    pipline = con.pipeline()  # 创建pipline对象</span><br><span class="line">    pipline.watch(&quot;9527&quot;)     # 监视记录</span><br><span class="line">    pipline.multi()           # 开启事务</span><br><span class="line">    pipline.hset(&quot;9527&quot;, &quot;name&quot;, &quot;jack&quot;)</span><br><span class="line">    pipline.hset(&quot;9527&quot;, &quot;age&quot;, 23)</span><br><span class="line">    pipline.execute()         # 提交事务</span><br><span class="line">except Exception as e:</span><br><span class="line">    print(e)</span><br><span class="line">finally:</span><br><span class="line">    if pipline in dir():</span><br><span class="line">        pipline.reset()  # 关闭 pipline  回收连接</span><br><span class="line">    del con</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="Redis应用场景以及不适用场景"><a href="#Redis应用场景以及不适用场景" class="headerlink" title="Redis应用场景以及不适用场景"></a>Redis应用场景以及不适用场景</h4><p>适用场景</p>
+<p>对于常见网站和场景，关系型数据库一般慢在2个地方</p>
+<ol>
+<li>读写I&#x2F;O性能比较差，磁盘读写</li>
+<li>一个数据可能通过大量计算才得到</li>
+</ol>
+<p>所以使用缓存能够减少I&#x2F;O读写次数以及计算次数</p>
+<p>读取速度快在两方面</p>
+<ol>
+<li>基于内存，读写较快</li>
+<li>使用hash算法直接定位，不需要计算，直接读取key&#x2F;value获取结果</li>
+</ol>
+<p>redis不适用的场景</p>
+<ol>
+<li>缓存不适用于数据一致性特别高、以及频繁更新数据的场景</li>
+<li>缓存也不适用于并发量不多的，加入缓存，不仅架构更难维护，消耗资源，让项目更加臃肿，同时redis也可能会出问题</li>
+<li>引入缓存，就需要考虑k-v数据如何设计</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">georgexia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/07/15/db/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/">http://example.com/2022/07/15/db/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">georgexia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/redis/">redis</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/12/db/MongoDB%E6%95%B0%E6%8D%AE%E5%BA%93/" title="MongoDb数据库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MongoDb数据库</div></div></a></div><div class="next-post pull-right"><a href="/2022/07/09/db/MYSQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Mysql数据库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Mysql数据库</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">georgexia</div><div class="author-info__description">guard against arrogance</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">welcome to my blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#redis%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">redis数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">Redis简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">Redis的持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E7%9A%84%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">Redis的五种数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B-string"><span class="toc-number">3.2.</span> <span class="toc-text">1、字符串类型(string)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%93%88%E5%B8%8C%E7%B1%BB%E5%9E%8B-hash"><span class="toc-number">3.3.</span> <span class="toc-text">2、哈希类型(hash)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E5%88%97%E8%A1%A8%E7%B1%BB%E5%9E%8B-list"><span class="toc-number">3.4.</span> <span class="toc-text">3、列表类型(list)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B-set"><span class="toc-number">3.5.</span> <span class="toc-text">4、集合类型(set)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B-zset-%EF%BC%88%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C%EF%BC%89"><span class="toc-number">3.6.</span> <span class="toc-text">5、有序集合类型(zset)（微博热搜）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">Key命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E5%85%A5%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6"><span class="toc-number">5.</span> <span class="toc-text">Redis为什么要引入事务机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E4%BA%8B%E5%8A%A1%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">Redis事务的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8C%81%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="toc-number">7.</span> <span class="toc-text">如何保持事务的一致性？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%E4%BA%8B%E5%8A%A1%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">如何开启事务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%8F%96%E6%B6%88%E4%BA%8B%E5%8A%A1%EF%BC%9F"><span class="toc-number">9.</span> <span class="toc-text">如何取消事务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis%E4%B8%8Epython%E4%BA%A4%E4%BA%92"><span class="toc-number">10.</span> <span class="toc-text">Redis与python交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis-py%E7%9A%84%E4%BA%8B%E5%8A%A1%E5%87%BD%E6%95%B0"><span class="toc-number">11.</span> <span class="toc-text">redis-py的事务函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%BB%A5%E5%8F%8A%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">11.1.</span> <span class="toc-text">Redis应用场景以及不适用场景</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/12/backend/RabbitMQ/" title="RabbitMQ">RabbitMQ</a><time datetime="2024-01-12T07:39:20.000Z" title="发表于 2024-01-12 15:39:20">2024-01-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/python/django%E5%9B%BD%E9%99%85%E5%8C%96/" title="django-translation插件">django-translation插件</a><time datetime="2023-12-25T06:37:20.000Z" title="发表于 2023-12-25 14:37:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/25/front/ant-design-vue3/" title="ant-design-vue">ant-design-vue</a><time datetime="2023-08-25T09:42:10.000Z" title="发表于 2023-08-25 17:42:10">2023-08-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/25/front/NodeJS/" title="NodeJS知识">NodeJS知识</a><time datetime="2023-06-25T14:17:12.000Z" title="发表于 2023-06-25 22:17:12">2023-06-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/20/front/ES6/" title="ES6知识">ES6知识</a><time datetime="2023-06-20T10:37:10.000Z" title="发表于 2023-06-20 18:37:10">2023-06-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By georgexia</div><div class="footer_custom_text">Hi,  welcome to my blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

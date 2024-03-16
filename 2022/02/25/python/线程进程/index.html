@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>并发知识 | georgexia</title><meta name="author" content="georgexia"><meta name="copyright" content="georgexia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="函数修改全局变量注意事项（global）在一个函数中对全局变量修改时 如何判断是否需要使用global进行说明 要看是否对全局变量的指向进行了修改 如果对全局变量的指向进行了修改，那么必须使用global 如果仅仅是修改了全局变量指向空间中的数据，则不必使用global。 多任务简单地说，就是操作系统可以同时运行多个任务。打个比方，你一边在用浏览器上网，一边在听MP3，一边在用Word赶作业，这就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发知识">
+<meta property="og:url" content="http://example.com/2022/02/25/python/%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B/index.html">
+<meta property="og:site_name" content="georgexia">
+<meta property="og:description" content="函数修改全局变量注意事项（global）在一个函数中对全局变量修改时 如何判断是否需要使用global进行说明 要看是否对全局变量的指向进行了修改 如果对全局变量的指向进行了修改，那么必须使用global 如果仅仅是修改了全局变量指向空间中的数据，则不必使用global。 多任务简单地说，就是操作系统可以同时运行多个任务。打个比方，你一边在用浏览器上网，一边在听MP3，一边在用Word赶作业，这就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpeg">
+<meta property="article:published_time" content="2022-02-25T06:37:20.000Z">
+<meta property="article:modified_time" content="2024-03-16T07:00:56.862Z">
+<meta property="article:author" content="georgexia">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/02/25/python/%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '并发知识',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-16 15:00:56'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="georgexia"><span class="site-name">georgexia</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">并发知识</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-25T06:37:20.000Z" title="发表于 2022-02-25 14:37:20">2022-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-16T07:00:56.862Z" title="更新于 2024-03-16 15:00:56">2024-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python%E5%9F%BA%E7%A1%80/">Python基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span></div></div></div><article class="post-content" id="article-container"><h4 id="函数修改全局变量注意事项（global）"><a href="#函数修改全局变量注意事项（global）" class="headerlink" title="函数修改全局变量注意事项（global）"></a>函数修改全局变量注意事项（global）</h4><p>在一个函数中对全局变量修改时</p>
+<p>如何判断是否需要使用global进行说明</p>
+<p>要看是否对全局变量的指向进行了修改</p>
+<p>如果对全局变量的指向进行了修改，那么必须使用global</p>
+<p>如果仅仅是修改了全局变量指向空间中的数据，则不必使用global。</p>
+<h1 id="多任务"><a href="#多任务" class="headerlink" title="多任务"></a>多任务</h1><p>简单地说，就是操作系统可以同时运行多个任务。打个比方，你一边在用浏览器上网，一边在听MP3，一边在用Word赶作业，这就是多任务，至少同时有3个任务正在运行。还有很多任务悄悄地在后台同时运行着，只是桌面上没有显示而已。</p>
+<p>单核CPU理论上每次只能执行一个代码或者应用程序</p>
+<h5 id="现在，多核CPU已经非常普及了，但是，即使过去的单核CPU，也可以执行多任务。由于CPU执行代码都是顺序执行的，那么，单核CPU是怎么执行多任务的呢？"><a href="#现在，多核CPU已经非常普及了，但是，即使过去的单核CPU，也可以执行多任务。由于CPU执行代码都是顺序执行的，那么，单核CPU是怎么执行多任务的呢？" class="headerlink" title="现在，多核CPU已经非常普及了，但是，即使过去的单核CPU，也可以执行多任务。由于CPU执行代码都是顺序执行的，那么，单核CPU是怎么执行多任务的呢？"></a>现在，多核CPU已经非常普及了，但是，即使过去的单核CPU，也可以执行多任务。由于CPU执行代码都是顺序执行的，那么，单核CPU是怎么执行多任务的呢？</h5><p>答案就是操作系统轮流让各个任务交替执行，任务1执行0.01秒，切换到任务2，任务2执行0.01秒，再切换到任务3，执行0.01秒……这样反复执行下去。表面上看，每个任务都是交替执行的，但是，由于CPU的执行速度实在是太快了，我们感觉就像所有任务都在同时执行一样。</p>
+<p>真正的<strong>并行</strong>执行多任务只能在多核CPU上实现，但是，由于任务数量远远多于CPU的核心数量，所以，操作系统也会自动把很多任务轮流调度到每个核心上执行。</p>
+<h5 id="通过时间片轮转算法（雨露均沾）可以实现假的多任务-看似“一起”执行-即并发（假的多任务）"><a href="#通过时间片轮转算法（雨露均沾）可以实现假的多任务-看似“一起”执行-即并发（假的多任务）" class="headerlink" title="通过时间片轮转算法（雨露均沾）可以实现假的多任务  看似“一起”执行  即并发（假的多任务）"></a>通过时间片轮转算法（雨露均沾）可以实现假的多任务  看似“一起”执行  即并发（假的多任务）</h5><h2 id="①线程"><a href="#①线程" class="headerlink" title="①线程"></a>①线程</h2><p>线程是实现多任务的一种手段</p>
+<p>线程（一个程序执行起来之后一定有一个执行代码的东西，称之为线程）</p>
+<p>线程的出现是没有先后顺序的</p>
+<p>并行 ：真的多任务（cpu数量多于进程数量）即任务真的是一起执行的<br>并发： 假的多任务（cpu数量少于进程数量）通过操作系统的各种任务调度算法，实现用多个任务“一起”执行（实际上总有一些任务不在执行，因为切换任务的速度相当快，看上去一起执行而已）。</p>
+<p><strong>在执行多个线程的时候 没有固定的顺序</strong></p>
+<p>当调用Thread的时候 不会创建线程<br>当调用Thread创建出来的实例对象的<strong>start</strong>方法地时候才会创建线程（子线程）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line">t1 = threading.Thread(target=函数名)</span><br><span class="line">t1.start()  <span class="comment"># 创建线程</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(threading.enmuerate())</span><br><span class="line"><span class="built_in">enumerate</span> 可以查看当前进程中的线程数量  返回一个列表</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建线程方法"><a href="#创建线程方法" class="headerlink" title="创建线程方法"></a>创建线程方法</h3><p>多线程之间共享全局变量</p>
+<p>多线程之间共享全局变量，如果同一时刻多个线程都在对同一个全局变量进行操作，可能会出现问题——资源竞争</p>
+<p>1.Thread target方法创建线程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test1</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test1------i-----&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test2</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test2------i-----&quot;</span>)</span><br><span class="line"></span><br><span class="line">t1 = threading.Thread(target=test1)  <span class="comment"># target指向函数名 不加括号</span></span><br><span class="line">t2 = threading.Thread(target=test2)</span><br><span class="line">t1.start()  <span class="comment"># 创建线程 去执行test1</span></span><br><span class="line">t2.start()  <span class="comment"># 创建线程 去执行test2</span></span><br></pre></td></tr></table></figure>
+
+<p>2、通过继承Thread类创建线程  （一般不使用）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyThread</span>(threading.Thread):  <span class="comment"># 这里要继承threading模块下的Thread类</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">            time.sleep(<span class="number">1</span>)</span><br><span class="line">            msg = <span class="string">&quot;I&#x27;m&quot;</span> + self.name + <span class="string">&#x27;@&#x27;</span> + <span class="built_in">str</span>(i)</span><br><span class="line">            <span class="built_in">print</span>(msg)</span><br><span class="line">            self.login()</span><br><span class="line">            self.register()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">login</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;这是登录函数.....&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">register</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;这是注册函数.....&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    t = MyThread()</span><br><span class="line">    t.start()   <span class="comment"># 调用start相当于创建了线程  默认自动去执行实例对象t中的 run 方法 并且只会执行run方法</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="线程特性"><a href="#线程特性" class="headerlink" title="线程特性"></a>线程特性</h3><p>线程可以共享全局变量</p>
+<p>但是多线程有个缺点 可能会资源竞争</p>
+<h4 id="使用互斥锁可以解决资源竞争问题"><a href="#使用互斥锁可以解决资源竞争问题" class="headerlink" title="使用互斥锁可以解决资源竞争问题"></a>使用互斥锁可以解决资源竞争问题</h4><p>threading中的 Lock方法<br>mutex 互斥的意思</p>
+<p>上锁代码越少越好</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个互斥锁 默认没有上锁</span></span><br><span class="line">mutex = threading.Lock() </span><br><span class="line"><span class="comment"># 在需要上锁的线程中上锁，如果之前没有被上锁 那么就上锁成功</span></span><br><span class="line"><span class="comment"># 如果之前被上了锁 则会堵塞在这里 直到这个锁被解开</span></span><br><span class="line">mutex.acquire()</span><br><span class="line"><span class="comment">#  解锁</span></span><br><span class="line">mutex.release()   </span><br></pre></td></tr></table></figure>
+
+<p>避免死锁</p>
+<ul>
+<li>程序设计时要尽量避免（银行家算法）</li>
+<li>添加超时时间等</li>
+</ul>
+<h2 id="②进程"><a href="#②进程" class="headerlink" title="②进程"></a>②进程</h2><h5 id="进程是实现多任务的另一种方法"><a href="#进程是实现多任务的另一种方法" class="headerlink" title="进程是实现多任务的另一种方法"></a>进程是实现多任务的另一种方法</h5><p>程序：例如xxx.py这是程序，是一个静态的</p>
+<p><strong>进程：一个程序运行起来后，代码+用到的资源 称之为进程，它是操作系统分配资源的基本单元。</strong></p>
+<p>不仅可以通过线程完成多任务，进程也是可以的</p>
+<p>程序和进程的根本区别：程序是一个资源分配的单位</p>
+<p>程序没运行之前叫做程序，运行起来的程序叫做进程，进程拥有资源，</p>
+<p>可以使用键盘鼠标摄像头等功能。被操作系统调度</p>
+<h5 id="多进程会浪费很多的资源内存-但是会提高效率"><a href="#多进程会浪费很多的资源内存-但是会提高效率" class="headerlink" title="多进程会浪费很多的资源内存 但是会提高效率"></a>多进程会浪费很多的资源内存 但是会提高效率</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test1</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;1---------&quot;</span>)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test2</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;2---------&quot;</span>)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    t1 = multiprocessing.Process(target=test1)   <span class="comment"># 和线程实现多任务几乎相同 只是模块以及方法不同</span></span><br><span class="line">    t2 = multiprocessing.Process(target=test2)   <span class="comment"># 多进程会浪费很多资源，但是会大幅提高效率</span></span><br><span class="line">    t1.start()   <span class="comment"># 调用start方法后才会去创建子进程</span></span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<h5 id="多进程理解"><a href="#多进程理解" class="headerlink" title="多进程理解"></a>多进程理解</h5><p>多进程的实现相当于拷贝代码</p>
+<p>复制主进程的代码、内存等资源   但是代码不变  相当于代码共享  只有一份代码</p>
+<p>各自执行各自的代码</p>
+<p>能共享的就共享，不能共享的就复制</p>
+<h5 id="进程和线程的区别："><a href="#进程和线程的区别：" class="headerlink" title="进程和线程的区别："></a>进程和线程的区别：</h5><p>进程是资源分配的单位，线程是操作系统调度的最小单位</p>
+<p>线程依赖于进程</p>
+<p>相当于流水线工作：</p>
+<p>一条流水线相当于一个进程</p>
+<p>一条流水线上的每个工人相当于每个线程</p>
+<p>线程之间共享全局变量</p>
+<p>进程之前不共享全局变量</p>
+<h2 id="队列进程间通信方式"><a href="#队列进程间通信方式" class="headerlink" title="队列进程间通信方式"></a>队列进程间通信方式</h2><p>队列  先进先出 相当于排队</p>
+<p>栈	先进后出 	相当于进电梯</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 队列实现进程之间的数据共享</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> multiprocessing  <span class="comment"># 导入进程模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">downlode_data</span>(<span class="params">q</span>):</span><br><span class="line">  <span class="string">&#x27;&#x27;&#x27;下载数据&#x27;&#x27;&#x27;</span></span><br><span class="line">  data = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>]</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将数据插入队列中    </span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> data:</span><br><span class="line">    q.put(i)     <span class="comment"># put方法 插入队列</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;数据已经下载完成.......&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">analyse_data</span>(<span class="params">q</span>):</span><br><span class="line">      <span class="string">&#x27;&#x27;&#x27;数据处理&#x27;&#x27;&#x27;</span></span><br><span class="line">      waiting_data = <span class="built_in">list</span>()</span><br><span class="line">      <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = q.get()   <span class="comment">#  get方法 取出队列中内容</span></span><br><span class="line">        waiting_data.append(data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> q.empty():    <span class="comment"># empty方法判断队列是否为空   full方法判断队列是否为满    如果有数据 但不满  都为false</span></span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">          <span class="built_in">print</span>(waiting_data)</span><br><span class="line"></span><br><span class="line">          <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">            <span class="comment"># 创建队列</span></span><br><span class="line">            q = multiprocessing.Queue()   <span class="comment"># 使用进程模块中的Queue方法 创建队列对象q</span></span><br><span class="line">            <span class="comment"># 创建多进程 将队列参数当做实参传给进程</span></span><br><span class="line">            t1 = multiprocessing.Process(target=downlode_data, args=(q,))</span><br><span class="line">            t2 = multiprocessing.Process(target=analyse_data, args=(q, ))</span><br><span class="line">            t1.start()</span><br><span class="line">            t2.start()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">              main()</span><br></pre></td></tr></table></figure>
+
+<h4 id="进程池"><a href="#进程池" class="headerlink" title="进程池"></a>进程池</h4><p>程序的创建和销毁是需要消耗大量资源的</p>
+<p>进程池就实现了进程的循环利用而节省资源</p>
+<p>进程池的创建与使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进程池的创建与使用</span></span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool</span><br><span class="line"><span class="keyword">import</span> os, time, random</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">worker</span>(<span class="params">msg</span>):</span><br><span class="line">    t_start = time.time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;%s开始执行,进程号为%d&quot;</span> % (msg,os.getpid()))</span><br><span class="line">    <span class="comment"># random.random()随机生成0~1之间的浮点数</span></span><br><span class="line">    time.sleep(random.random()*<span class="number">2</span>) </span><br><span class="line">    t_stop = time.time()</span><br><span class="line">    <span class="built_in">print</span>(msg,<span class="string">&quot;执行完毕，耗时%0.2f&quot;</span> % (t_stop-t_start))</span><br><span class="line"></span><br><span class="line">po = Pool(<span class="number">3</span>)  <span class="comment"># 定义一个进程池，最大进程数3</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">10</span>):</span><br><span class="line">    <span class="comment"># Pool().apply_async(要调用的目标,(传递给目标的参数元祖,))</span></span><br><span class="line">    <span class="comment"># 每次循环将会用空闲出来的子进程去调用目标</span></span><br><span class="line">    po.apply_async(worker,(i,))   <span class="comment">#  这里相当于想进程池中添加任务worker  并且传入实参i</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;----start----&quot;</span>)</span><br><span class="line">po.close()  <span class="comment"># 关闭进程池，关闭后po不再接收新的请求</span></span><br><span class="line">po.join()  <span class="comment"># 等待po中所有子进程执行完成，必须放在close语句之后</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;-----end-----&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="③协程"><a href="#③协程" class="headerlink" title="③协程"></a>③协程</h2><p>迭代器（作用就是节省空间）		<br>可迭代的iterable</p>
+<p>for i in （）能返回  则是可迭代对象<br>或者 使用 isinstance（对象， Iterable） 返回T&#x2F;F</p>
+<p>如果想要一个对象成为一个可迭代的对象 ，即可以使用for遍历，<br>那么必须实现__iter__方法  魔法方法会在创建对象的时候自动调用</p>
+<p><strong>for循环遍历其实执行的是以下操作</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for temp in xxxx_obj:</span><br><span class="line">      pass</span><br><span class="line">1、判断xxxx_obj是否可以迭代 （即看对象中是否有__iter__方法）</span><br><span class="line">2、在第一步成立的前提下，调用iter函数</span><br><span class="line">     得到xxxx_obj对象的__iter__方法的返回值</span><br><span class="line">3、__iter__方法的返回值应该是一个迭代器对象（即实现了__iter__和__next__方法的对象）</span><br></pre></td></tr></table></figure>
+
+<p>判断是否为可迭代对象： isinstance（对象， Iterable）返回T&#x2F;F<br>判断是否为迭代器： isinstance（对象，Iterator）</p>
+<p>如果想让一个对象成为一个可迭代对象，即可以使用for循环<br>那么这个对象中必须有一个 __iter__方法<br>并且__iter__方法中必须实现返回另一个对象的引用<br>另一个对象中只需要有__iter__方法和 __next__方法 （即是<strong>迭代器</strong> ）</p>
+<p>那么for循环中 取得值 就是 另一个对象中__next__方法中返回的值</p>
+<p><strong>迭代器的作用是保存一个方法 而不是结果  减少内存空间的占用</strong></p>
+<h4 id="面试题-range-和-xrange的区别"><a href="#面试题-range-和-xrange的区别" class="headerlink" title="面试题  range 和 xrange的区别"></a>面试题  range 和 xrange的区别</h4><p>在py2中    range（10） 直接返回一个0-9的列表  占用空间资源较多<br>而 xrange 不会直接返回列表  他返回的是一个对象<br>这个对象中保存了range的方法<br>即xrange返回的是一个可迭代对象 什么时候用什么时候取  占用空间极少</p>
+<p><strong>这就是迭代器的作用  保存一个方法而不是结果，减少内存空间的占用</strong></p>
+<p>生成器   generator（是一种特殊的迭代器）<br>如果一个函数中含有yield，那么 这个就不再是函数 而是一个生成器模板（相当于类）</p>
+<p>如果在调用该函数时 发现该函数中有yield ，那么此时不再是调用函数<br>而是创建一个生成器对象</p>
+<p>到了yield时会暂停</p>
+<p>next（）用于启动生成器  相当于start<br>xx &#x3D; send（”hahaha”）会将xx &#x3D; yield a 的值改成 hahaha<br>即 调用send函数时  会将xx的值改为hahaha</p>
+<p>协程 -yield</p>
+<p>协程-greenlet </p>
+<p>协程-gevent<br>遇到延时就会切换<br>延时用 gevent.sleep()</p>
+<h2 id="为什么要引入线程池"><a href="#为什么要引入线程池" class="headerlink" title="为什么要引入线程池"></a>为什么要引入线程池</h2><p>如果程序中经常需要用到线程，频繁的创建和销毁线程会浪费很多硬件资源，所以需要把线程和任务分离开。线程可以反复利用，省去了重复创建的麻烦。</p>
+<h2 id="python线程池技术"><a href="#python线程池技术" class="headerlink" title="python线程池技术"></a>python线程池技术</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">say_hello</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"></span><br><span class="line">executor = ThreadPoolExecutor(<span class="number">20</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">10</span>):</span><br><span class="line">    executor.submit(say_hello())</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">georgexia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/02/25/python/%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B/">http://example.com/2022/02/25/python/%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">georgexia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/25/front/%E8%B7%A8%E5%9F%9F/" title="跨域问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">跨域问题</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/12/backend/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" title="网络通信"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">网络通信</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/20/python/mini-web%E6%A1%86%E6%9E%B6/" title="mini-web框架"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-20</div><div class="title">mini-web框架</div></div></a></div><div><a href="/2022/01/21/python/python%E5%9F%BA%E7%A1%80/" title="python基础知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-21</div><div class="title">python基础知识</div></div></a></div><div><a href="/2022/03/15/python/python%E9%AB%98%E7%BA%A7%E8%AF%AD%E6%B3%95/" title="python高级语法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-15</div><div class="title">python高级语法</div></div></a></div><div><a href="/2022/03/12/python/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="面向对象知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-12</div><div class="title">面向对象知识</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">georgexia</div><div class="author-info__description">guard against arrogance</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">welcome to my blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E4%BF%AE%E6%94%B9%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%88global%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">函数修改全局变量注意事项（global）</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E4%BB%BB%E5%8A%A1"><span class="toc-number"></span> <span class="toc-text">多任务</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8E%B0%E5%9C%A8%EF%BC%8C%E5%A4%9A%E6%A0%B8CPU%E5%B7%B2%E7%BB%8F%E9%9D%9E%E5%B8%B8%E6%99%AE%E5%8F%8A%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%EF%BC%8C%E5%8D%B3%E4%BD%BF%E8%BF%87%E5%8E%BB%E7%9A%84%E5%8D%95%E6%A0%B8CPU%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%BB%BB%E5%8A%A1%E3%80%82%E7%94%B1%E4%BA%8ECPU%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E9%83%BD%E6%98%AF%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%9A%84%EF%BC%8C%E9%82%A3%E4%B9%88%EF%BC%8C%E5%8D%95%E6%A0%B8CPU%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="toc-number">0.1.</span> <span class="toc-text">现在，多核CPU已经非常普及了，但是，即使过去的单核CPU，也可以执行多任务。由于CPU执行代码都是顺序执行的，那么，单核CPU是怎么执行多任务的呢？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%E7%AE%97%E6%B3%95%EF%BC%88%E9%9B%A8%E9%9C%B2%E5%9D%87%E6%B2%BE%EF%BC%89%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E5%81%87%E7%9A%84%E5%A4%9A%E4%BB%BB%E5%8A%A1-%E7%9C%8B%E4%BC%BC%E2%80%9C%E4%B8%80%E8%B5%B7%E2%80%9D%E6%89%A7%E8%A1%8C-%E5%8D%B3%E5%B9%B6%E5%8F%91%EF%BC%88%E5%81%87%E7%9A%84%E5%A4%9A%E4%BB%BB%E5%8A%A1%EF%BC%89"><span class="toc-number">0.2.</span> <span class="toc-text">通过时间片轮转算法（雨露均沾）可以实现假的多任务  看似“一起”执行  即并发（假的多任务）</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%91%A0%E7%BA%BF%E7%A8%8B"><span class="toc-number"></span> <span class="toc-text">①线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="toc-number"></span> <span class="toc-text">创建线程方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%89%B9%E6%80%A7"><span class="toc-number"></span> <span class="toc-text">线程特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BA%92%E6%96%A5%E9%94%81%E5%8F%AF%E4%BB%A5%E8%A7%A3%E5%86%B3%E8%B5%84%E6%BA%90%E7%AB%9E%E4%BA%89%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">使用互斥锁可以解决资源竞争问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%91%A1%E8%BF%9B%E7%A8%8B"><span class="toc-number"></span> <span class="toc-text">②进程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%98%AF%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">0.1.</span> <span class="toc-text">进程是实现多任务的另一种方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%BC%9A%E6%B5%AA%E8%B4%B9%E5%BE%88%E5%A4%9A%E7%9A%84%E8%B5%84%E6%BA%90%E5%86%85%E5%AD%98-%E4%BD%86%E6%98%AF%E4%BC%9A%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87"><span class="toc-number">0.2.</span> <span class="toc-text">多进程会浪费很多的资源内存 但是会提高效率</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%90%86%E8%A7%A3"><span class="toc-number">0.3.</span> <span class="toc-text">多进程理解</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="toc-number">0.4.</span> <span class="toc-text">进程和线程的区别：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%9F%E5%88%97%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F"><span class="toc-number"></span> <span class="toc-text">队列进程间通信方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%B1%A0"><span class="toc-number">1.</span> <span class="toc-text">进程池</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%91%A2%E5%8D%8F%E7%A8%8B"><span class="toc-number"></span> <span class="toc-text">③协程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-range-%E5%92%8C-xrange%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.</span> <span class="toc-text">面试题  range 和 xrange的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E5%85%A5%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number"></span> <span class="toc-text">为什么要引入线程池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%8A%80%E6%9C%AF"><span class="toc-number"></span> <span class="toc-text">python线程池技术</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/12/backend/RabbitMQ/" title="RabbitMQ">RabbitMQ</a><time datetime="2024-01-12T07:39:20.000Z" title="发表于 2024-01-12 15:39:20">2024-01-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/python/django%E5%9B%BD%E9%99%85%E5%8C%96/" title="django-translation插件">django-translation插件</a><time datetime="2023-12-25T06:37:20.000Z" title="发表于 2023-12-25 14:37:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/25/front/ant-design-vue3/" title="ant-design-vue">ant-design-vue</a><time datetime="2023-08-25T09:42:10.000Z" title="发表于 2023-08-25 17:42:10">2023-08-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/25/front/NodeJS/" title="NodeJS知识">NodeJS知识</a><time datetime="2023-06-25T14:17:12.000Z" title="发表于 2023-06-25 22:17:12">2023-06-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/20/front/ES6/" title="ES6知识">ES6知识</a><time datetime="2023-06-20T10:37:10.000Z" title="发表于 2023-06-20 18:37:10">2023-06-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By georgexia</div><div class="footer_custom_text">Hi,  welcome to my blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

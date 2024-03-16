@@ -1,0 +1,444 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTML知识 | georgexia</title><meta name="author" content="georgexia"><meta name="copyright" content="georgexia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="HTML简介什么是html大名：Hyper Text Markup Language 寓意： 超文本  标记  语言 ctrl+&#x2F; 快速注释一行html基本格式12345678910&lt;html&gt;&lt;head&gt;	&lt;title&gt;myfirestpage&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;&lt;body&gt;HELLO,everyone.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML知识">
+<meta property="og:url" content="http://example.com/2021/11/05/front/HTML%E4%B8%8ECSS/index.html">
+<meta property="og:site_name" content="georgexia">
+<meta property="og:description" content="HTML简介什么是html大名：Hyper Text Markup Language 寓意： 超文本  标记  语言 ctrl+&#x2F; 快速注释一行html基本格式12345678910&lt;html&gt;&lt;head&gt;	&lt;title&gt;myfirestpage&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;&lt;body&gt;HELLO,everyone.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpeg">
+<meta property="article:published_time" content="2021-11-05T02:49:12.000Z">
+<meta property="article:modified_time" content="2024-03-16T06:55:57.063Z">
+<meta property="article:author" content="georgexia">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/11/05/front/HTML%E4%B8%8ECSS/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTML知识',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-16 14:55:57'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="georgexia"><span class="site-name">georgexia</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">HTML知识</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-05T02:49:12.000Z" title="发表于 2021-11-05 10:49:12">2021-11-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-16T06:55:57.063Z" title="更新于 2024-03-16 14:55:57">2024-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E8%83%BD/">前端技能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span></div></div></div><article class="post-content" id="article-container"><h2 id="HTML简介"><a href="#HTML简介" class="headerlink" title="HTML简介"></a>HTML简介</h2><h5 id="什么是html"><a href="#什么是html" class="headerlink" title="什么是html"></a>什么是html</h5><p>大名：Hyper Text Markup Language</p>
+<p>寓意： 超文本  标记  语言</p>
+<h3 id="ctrl-快速注释一行"><a href="#ctrl-快速注释一行" class="headerlink" title="ctrl+&#x2F; 快速注释一行"></a>ctrl+&#x2F; 快速注释一行</h3><h5 id="html基本格式"><a href="#html基本格式" class="headerlink" title="html基本格式"></a>html基本格式</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>myfirestpage<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">HELLO,everyone.This is my first page!</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="字体标签"><a href="#字体标签" class="headerlink" title="字体标签"></a>字体标签</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">font</span>&gt;</span> ..... <span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>作用：规定文本的字体、字体尺寸、字体颜色</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">title</span>&gt;</span>first.html<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">&quot;7&quot;</span> <span class="attr">face</span>=<span class="string">&quot;黑体&quot;</span> <span class="attr">color</span>=<span class="string">&quot;red&quot;</span>&gt;</span></span><br><span class="line">  		这是第一个页面。哈哈哈哈哈</span><br><span class="line">  	<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="段落标签"><a href="#段落标签" class="headerlink" title="段落标签"></a>段落标签</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span> ......  <span class="tag">&lt;<span class="name">p</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>作用：定义一个段落</p>
+<p>示例：<p>我是段落</p></p>
+<p><br>是换行</p>
+<p>段落内会根据所在容器的宽度自动换行</p>
+<h5 id="注释标签"><a href="#注释标签" class="headerlink" title="注释标签"></a>注释标签</h5><h1 id=""><a href="#" class="headerlink" title=""></a><!--这是一段注释--></h1><h5 id="标题标签"><a href="#标题标签" class="headerlink" title="标题标签"></a>标题标签</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1-h6</span>&gt;</span><span class="tag">&lt;/<span class="name">h1-h6</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1>标题1</h1>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>标题2<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>标题3<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>标题4<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h5</span>&gt;</span>标题5<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h6</span>&gt;</span>标题6<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="img标签"><a href="#img标签" class="headerlink" title="img标签"></a>img标签</h5><h5 id="表格-中可添加的属性"><a href="#表格-中可添加的属性" class="headerlink" title="表格 中可添加的属性"></a>表格 <table>中可添加的属性</h5><table> 表格开始/结尾  在table中设置 边框以及像素px
+
+<table border="1" width="600px">   border=1表示添加边框   宽度为600像素
+<tr>  表示行开始/结尾
+<cellspacing=""> 调整单元格之间的间距
+<cellpadding=""> 调整单元格边距（单元格中内容与单元格边框的距离）
+
+<td> 表示单元格开始/结尾
+
+<p><width> 是否显示表格边框</p>
+<p><border> 表格宽度</p>
+<caption>....</caption>  表格标题
+
+<p><bgcolor> 设置表格背景颜色     bgcolor&#x3D;”red”  或者 bgcolor&#x3D;”00ff00”  红绿蓝三原色 以16进制表示</p>
+<p>&lt;&gt;</p>
+<p>合并列  colspan</p>
+<p>合并行  rowspan  </p>
+<p>背景颜色：bgcolor  可以填入颜色单词 red   可以填入16进制数字   00ff00</p>
+<p>水平对齐方式：align ：left  center  right</p>
+<p>垂直对齐方式：valign：bottom middle top</p>
+<h5 id="表单-：隐藏的部分-可以想象为包围各项栏目的虚框-相当于是一个容器"><a href="#表单-：隐藏的部分-可以想象为包围各项栏目的虚框-相当于是一个容器" class="headerlink" title="表单 ：隐藏的部分 可以想象为包围各项栏目的虚框 相当于是一个容器 #"></a>表单 ：隐藏的部分 可以想象为包围各项栏目的虚框 相当于是一个容器 #<form></form></h5><p>作用：用于手机用户信息，进行人机交互操作  用户和后台的交互</p>
+<form action="" method=""> 后台操作      method  提交方式 post 隐式提交 get 普通提交
+<input> 开头是大多数控件的写法  也有其他的
+
+<input type="text" name="" id="" value=""> 
+
+<p>type后面写的是 控件的类型  文本框 复选框 列表框等等  填写value值之后才会真正传入后台数</p>
+<p><lable>这个标签专门用于在页面上进行文字显示而使用的</p>
+<p>包含元素：</p>
+<p>1、文本框： 单行文本框  <input   type = "text"></p>
+<p>多行文本框：<textarea rows="5" cols="30">请输入</textarea></p>
+<p>2、单选按钮：input   radio  想要设置不能多选  将name值设为相同</p>
+<p><label>性别：</label><br>            <input type="radio" name="xb" id="">男<br>            <input type="radio" name="xb" id="">女</p>
+<p>3、列表框：下拉式列表框：</p>
+<p>直接使用select  select 中包含 条目option  </p>
+<select>
+                <option value="1995">1995</option>
+                <option value="1996">1996</option>
+                <option value="1997" selected="selected">1997</option>
+                <option value="1998">1998</option>
+                <option value="1999">1999</option>
+                <option value="2000">2000</option>
+            </select>
+
+<p>普通列表框 +上size即可</p>
+<select size="4">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>	
+            </select>
+
+
+<p>想要默认某条option   加上 &lt;selected&#x3D;”selected”&gt;即可</p>
+<p>4、图片框：<img src=""></p>
+<p>5、复选框：checkbox 方格多选框</p>
+<p><label>兴趣爱好：</label><br>            <input type="checkbox" name="" id="" value="1">游泳<br>            <input type="checkbox" name="" id="" value="2">看书<br>            <input type="checkbox" name="" id="" value="3">爬山<br>            <input type="checkbox" name="" id="" value="4">思考</p>
+<p>6、上传按钮：<input type="file"><input type="button" value="上传">  type&#x3D;file</p>
+<p>7、隐藏域：000<input type="hidden" name="">000 相当于隐藏文本框 </p>
+<p>这些元素 统称为“控件”</p>
+<h5 id="常用控件属性"><a href="#常用控件属性" class="headerlink" title="常用控件属性"></a>常用控件属性</h5><p>name ：	控件名称  可重复</p>
+<p>id：		指定标签唯一标识</p>
+<p>value:	输入（收集）控件的值</p>
+<p>checked：复选框</p>
+<p>selected：列表框</p>
+<p>src：	设置图片来源</p>
+<p>onclick：鼠标单击事件  以on开头的都是事件</p>
+<p>disabled：禁用该控件</p>
+<p>multiple：允许多选（适合普通列表框）		</p>
+<h2 id="CSS层叠样式表（美化）"><a href="#CSS层叠样式表（美化）" class="headerlink" title="CSS层叠样式表（美化）"></a>CSS层叠样式表（美化）</h2><h5 id="什么是CSS"><a href="#什么是CSS" class="headerlink" title="什么是CSS"></a>什么是CSS</h5><p>大名：Cascading  Style Sheets</p>
+<p>寓意：层叠        样式       列表</p>
+<h5 id="CSS的作用"><a href="#CSS的作用" class="headerlink" title="CSS的作用"></a>CSS的作用</h5><p>1、结构与样式分离的方式，便于后期维护与改版</p>
+<p>2、可以用多套样式，使网页有任意样式切换的效果</p>
+<p>3、使页面载入的更快，降低服务器的成本</p>
+<h5 id="CSS样式文件结构"><a href="#CSS样式文件结构" class="headerlink" title="CSS样式文件结构"></a>CSS样式文件结构</h5><p>html中的任何一个标签都可以当做样式的选择器</p>
+<p>代表的是把该类都进行选中</p>
+<p>内部样式表：样式表和当前主题内容是存在同一个文件中的</p>
+<p>外部样式表：样式表和内容不再一个文件里面</p>
+<head>
+    <meta charset="utf-8">
+    <title>Document</title>
+    <style type="text/css">
+        p{
+            background-color: red;
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<h5 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h5><p>作用：用来选择（找到）需要添加样式的位置</p>
+<p>常用选择器：标签选择器 （归）类选择器（class选择器）、</p>
+<h5 id="类（class选择器）选择器-必须以-开头"><a href="#类（class选择器）选择器-必须以-开头" class="headerlink" title="类（class选择器）选择器 必须以.开头"></a>类（class选择器）选择器 必须以.开头</h5><html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Document</title>
+    <style type="text/css">
+        p{
+            background-color: red;
+            font-size: 40px;
+        }
+        .p1{
+            font-family: 宋体;
+        }
+    </style>
+</head>
+<body>
+    <p>http://www.imooc.com</p>
+    <p class="p1">慕课网</p>
+    <p class="p1">慕课网是垂直的互联网IT技能免费学习网站。以独家视频教程、在线编程工具、学习计划、问答社区为核心特色。在这里，你可以找到最好的互联网技术牛人，也可以通过免费的在线公开视频课程学习国内领先的互联网IT技术I</p>
+</body>
+</html>
+
+<h4 id="背景样式"><a href="#背景样式" class="headerlink" title="背景样式"></a>背景样式</h4><p>body{<br>            background-color: blue;   # 颜色值<br>            background-image: url(“image&#x2F;richuyinxing.jpg”);	# 图片位置<br>            background-repeat: no-repeat;	# 背景图像的重复方向repeat、repeat-x、repeat-y、no-repeat<br>            background-attachment: fixed; # 背景图像是否随滚动条滚动  不滚动：fixed 滚动：scroll<br>            background-position: 20px 30px;  # 背景图像的起始位置，如果只规定了一个关键词，那么第二个值为center</p>
+<p>​			background: blue url(“image&#x2F;richuyinxing.jpg”) no-repeat fixed 20px 30px;<br>​		} # 背景样式的值是复合属性值组合</p>
+<h4 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h4><p>外部样式表就是新建一个文档，里面全写CSS，然后在通过Link插入到html代码中</p>
+<p>作用：使网页的表示层与结构层彻底分离</p>
+<p>外部样式表引入方法：</p>
+<link rel="stylesheet" type="text/css" href="index.css">
+
+<p> link 一般用于链接css  </p>
+<p>rel&#x3D;“stylesheet” 表明链接的是样式表</p>
+<p>type：要链接的类型</p>
+<p>href&#x3D;“” ：指明web样式表的文件</p>
+<h4 id="文本类样式设置"><a href="#文本类样式设置" class="headerlink" title="文本类样式设置"></a>文本类样式设置</h4><h5 id="文本对齐属性"><a href="#文本对齐属性" class="headerlink" title="文本对齐属性"></a>文本对齐属性</h5><h5 id="属性属性值作用"><a href="#属性属性值作用" class="headerlink" title="属性			属性值					作用"></a>属性			属性值					作用</h5><p>color：			表示颜色的内容			设置文本颜色</p>
+<p>direction：		ltr、rtl					文本对齐方向   ltr 左对齐    rtl  右对齐   只对阿拉伯语言有效果 </p>
+<p>letter-spacing	npx（n可以为负）		字符间距</p>
+<p>line-height：		npx						行高</p>
+<p>text-align：		left、right、center、justify（两端对齐）	文本对齐方式</p>
+<h5 id="文本修饰属性"><a href="#文本修饰属性" class="headerlink" title="文本修饰属性"></a>文本修饰属性</h5><p>text-decoration： none、underline、overline、line-through	下划线</p>
+<p>用法：text-decoration: underline;  none 无下划线  underline 下划线  overline 上划线  line-through 字上划线</p>
+<p>text-shadow：	h-shadow  v-shadow blur color				文本设置阴影</p>
+<p>用法：text-shadow: 5px 5px 100px red;  横坐标 竖坐标 阴影 颜色</p>
+<p>text-transform：	none、capitalize、uppercase、lowercase	改变字母大小</p>
+<p>用法：text-transform: uppercase;  capitalize 首字母大写 uppercase 所有字母大写</p>
+<p>text-indent：		npx、nem								首行缩进 </p>
+<p>用法：text-indent: 2em;  em ：当前字符格式   2em就是首行缩进当前两个字符形式</p>
+<h4 id="字体类样式"><a href="#字体类样式" class="headerlink" title="字体类样式"></a>字体类样式</h4><p>font-系列：font-style	font-family等</p>
+<p>作用：定义文本的字体类型、大小、贾翠、风格（斜体）和变形（大写小写字母）</p>
+<p>font-family：隶书、仿宋、楷体等字体							设置字体</p>
+<p>font-style：normal、italic（斜体字）oblique（斜体显示）	规定斜体文本</p>
+<p>font-weight：normal、bold（加粗）100-900						文本的粗细</p>
+<p>font-size：npx												字体大小</p>
+<h4 id="列表样式"><a href="#列表样式" class="headerlink" title="列表样式"></a>列表样式</h4><ul></ul>：无序列表 unorder list
+
+<ol></ol>：有序列表 order list
+
+<p>lists-style-type：		none、disc、circle、square、decimal	设置列表项目外观</p>
+<p>none  无标记		disc 默认实心圆	circle 空心圆	square 实心方块	decimal  数字</p>
+<p>list-style-position：	inside、outside						列表符号位置</p>
+<p>list-style-image：		url、none							把图像设置为列表项目标记</p>
+<p>list-style：			综合前面3个							简写属性</p>
+<h4 id="伪类的样式处理"><a href="#伪类的样式处理" class="headerlink" title="伪类的样式处理"></a>伪类的样式处理</h4><p>通常情况，超级链接上设置的样式，称为伪类</p>
+<p>作用：设置超级链接的4中状态</p>
+<p>ps：1、伪类是用在超链接上的效果比较多，超链接并不是伪类</p>
+<p>​	2、伪类是选择器</p>
+<h4 id="伪类选择器样式"><a href="#伪类选择器样式" class="headerlink" title="伪类选择器样式"></a>伪类选择器样式</h4><p>a:link		未访问的链接样式</p>
+<p>a:visited		已访问的链接样式</p>
+<p>a:hover		鼠标移动到链接上（浮动、悬停）的样式</p>
+<p>a:active		像被激活的元素添加样式</p>
+<p>:focus		选择拥有键盘输入焦点的元素	</p>
+<p>a:link{<br>    color: red;<br>}<br>a:visited{<br>    color: green;<br>}<br>a:hover{<br>    color: yellow;<br>    font-size: 30px;<br>}<br>a:active{<br>    color: blue;<br>}</p>
+<h4 id="伪类的分类：状态伪类和结构性伪类"><a href="#伪类的分类：状态伪类和结构性伪类" class="headerlink" title="伪类的分类：状态伪类和结构性伪类"></a>伪类的分类：状态伪类和结构性伪类</h4><h5 id="结构性（伪类选择器）"><a href="#结构性（伪类选择器）" class="headerlink" title="结构性（伪类选择器）"></a>结构性（伪类选择器）</h5><p>属性			作用</p>
+<p>:first-child		选中元素的第一个子元素</p>
+<p>:last-child		选中元素的最后一个子元素</p>
+<p>:nth-child		从左往右选中多个或者特定子元素</p>
+<p>:ntx-last-child()	从右往左选中多个或者特定子元素</p>
+<p>:first-of-type		选择一个上级元素下的第一个同类子元素</p>
+<h5 id="伪元素选择器（伪类选择器选择整体-伪元素选择器选择部分）使用双冒号-识别"><a href="#伪元素选择器（伪类选择器选择整体-伪元素选择器选择部分）使用双冒号-识别" class="headerlink" title="伪元素选择器（伪类选择器选择整体  伪元素选择器选择部分）使用双冒号::识别"></a>伪元素选择器（伪类选择器选择整体  伪元素选择器选择部分）使用双冒号::识别</h5><p>属性				作用</p>
+<p>::selection			可以改变选中内容的格式  颜色等等</p>
+<p>::before				可以在内容之前插入新内容  无法被选中</p>
+<p>::after				可以在内容之后插入新内容</p>
+<p>::first-line			选择指定选择器的首行</p>
+<p>::first-letter			选择文本的第一个字符</p>
+<p>body::before{<br>    content: “终于等到你,”;<br>}<br>body::after{<br>    content: “依依不舍离开你。”;<br>}<br>p::first-line{<br>    background-color: yellow;<br>}<br>p::first-letter{<br>    font-size: 30px;<br>}<br>*::selection{<br>    background-color: red;<br>}</p>
+<h4 id="其他选择器"><a href="#其他选择器" class="headerlink" title="其他选择器"></a>其他选择器</h4><p>id选择器					以#开头</p>
+<pre><code>#name1&#123;
+    color: red;
+    background-color: yellow;
+&#125;
+#name2&#123;
+    color: red;
+    background-color: yellow;
+&#125;
+</code></pre>
+<p>}</p>
+<p>*选择器					*开头选中全部内容</p>
+<p>逗号选择器				相当于进行联合 ，可以连接任意选择器</p>
+<pre><code>#name1,#name2&#123;
+    color: red;
+    background-color: yellow;
+&#125;
+</code></pre>
+<p>空格选择器				子孙后代选择器</p>
+<p>大于号&gt;						子选择器</p>
+<p>+选择器						相邻兄弟选择器</p>
+<h4 id="CSS选择器的优先级"><a href="#CSS选择器的优先级" class="headerlink" title="CSS选择器的优先级"></a>CSS选择器的优先级</h4><p>选择器</p>
+<p>!important &gt; 行内样式 &gt; ID选择器 &gt; 类选择器 &gt; 标签选择器 &gt; 通配符 &gt; 浏览器默认属性</p>
+<p>!important  强制最高优先级</p>
+<h2 id="css浮动效果设计"><a href="#css浮动效果设计" class="headerlink" title="css浮动效果设计"></a>css浮动效果设计</h2><h4 id="DIV简介"><a href="#DIV简介" class="headerlink" title="DIV简介"></a>DIV简介</h4><h5 id="什么是DIV"><a href="#什么是DIV" class="headerlink" title="什么是DIV"></a>什么是DIV</h5><p>DIV是层叠样式表中的定位技术，全称DIVision</p>
+<p>有时候把div称为图层，更多时候称为”块”</p>
+<h4 id="DIV样式设置"><a href="#DIV样式设置" class="headerlink" title="DIV样式设置"></a>DIV样式设置</h4><p>DIV设置大小、位置、背景</p>
+<p>div在没有设置宽度和高度时候</p>
+<h6 id="宽度是上一级元素的宽度"><a href="#宽度是上一级元素的宽度" class="headerlink" title="宽度是上一级元素的宽度"></a>宽度是上一级元素的宽度</h6><h6 id="高度是div中内容的高度"><a href="#高度是div中内容的高度" class="headerlink" title="高度是div中内容的高度"></a>高度是div中内容的高度</h6><pre><code>div1&#123;
+background-color: yellow;
+width: 150px; #设置div宽度
+height: 150px; #设置div高度
+position: absolute; #绝对定位  没有该项后边top等不会生效
+top: 150px; # 设置div起始位置
+left: 150px; # 设置div起始位置
+overflow: scroll; # 显示滚动条
+&#125;
+</code></pre>
+<h5 id="div块区域-overflow-属性设置"><a href="#div块区域-overflow-属性设置" class="headerlink" title="div块区域 overflow 属性设置"></a>div块区域 overflow 属性设置</h5><p>visible			默认值  内容不会被修剪，超出部分呈现在边框外</p>
+<p>hidden			超出部分被隐藏</p>
+<p>scroll				不论是否超出  都显示滚动条</p>
+<p>auto					按需求显示滚动条以便查询其余内容</p>
+<h5 id="div块轮廓（边框）-outline"><a href="#div块轮廓（边框）-outline" class="headerlink" title="div块轮廓（边框） outline"></a>div块轮廓（边框） outline</h5><h6 id="div在没有设置宽度的情况下"><a href="#div在没有设置宽度的情况下" class="headerlink" title="div在没有设置宽度的情况下"></a>div在没有设置宽度的情况下</h6><h6 id="他的宽度是上级元素的宽度"><a href="#他的宽度是上级元素的宽度" class="headerlink" title="他的宽度是上级元素的宽度"></a>他的宽度是上级元素的宽度</h6><h5 id="高度则是div中内容的高度"><a href="#高度则是div中内容的高度" class="headerlink" title="高度则是div中内容的高度"></a>高度则是div中内容的高度</h5><h6 id="作用：绘制元素周围的一条线，位于边框边缘的外围"><a href="#作用：绘制元素周围的一条线，位于边框边缘的外围" class="headerlink" title="作用：绘制元素周围的一条线，位于边框边缘的外围"></a>作用：绘制元素周围的一条线，位于边框边缘的外围</h6><p>可以起到突出元素的作用</p>
+<p>none				无边框</p>
+<p>dashed			虚线边框</p>
+<p>dotted			点状边框</p>
+<p>solid				实线边框</p>
+<p>double			双线边框 </p>
+<p>可以具体到上下左右边框</p>
+<p>border-left、border-right、border-top、border-bottom</p>
+<p>边框线是根据div块决定的 溢出部分失效</p>
+<h4 id="盒子模型（改变内外间距）"><a href="#盒子模型（改变内外间距）" class="headerlink" title="盒子模型（改变内外间距）"></a>盒子模型（改变内外间距）</h4><p>作用：在进行页面布局时，盒子模型非常重要</p>
+<p>margin：外边距</p>
+<p>margin：10px 10px 10px 10px 按照上右下左的顺序</p>
+<p>padding：内边距</p>
+<p>border：边框</p>
+<p>都可以分为 top bottom right left 四个方向</p>
+<p>box-sizing	padding的距离产生：</p>
+<p>1、content-box：在宽度和高度之外绘制元素的内边距和边框</p>
+<p>（即额外延伸出去的距离）</p>
+<p>2、border-box：已设定的宽度和高度分别减去边框和内边距</p>
+<p>才能得到内容的宽度和高度</p>
+<p>（即div不变 将内容缩小平移）</p>
+<h2 id="浮动float（重要）"><a href="#浮动float（重要）" class="headerlink" title="浮动float（重要）"></a>浮动float（重要）</h2><h5 id="行级元素：行内元素和其他行元素在一条水平线上排列的"><a href="#行级元素：行内元素和其他行元素在一条水平线上排列的" class="headerlink" title="行级元素：行内元素和其他行元素在一条水平线上排列的"></a>行级元素：行内元素和其他行元素在一条水平线上排列的</h5><p>（即不换行的）</p>
+<p>a标签	label	img	span等</p>
+<h5 id="块级元素：在默认情况下，会独占一行"><a href="#块级元素：在默认情况下，会独占一行" class="headerlink" title="块级元素：在默认情况下，会独占一行"></a>块级元素：在默认情况下，会独占一行</h5><p>div	h标签	li	table等</p>
+<h5 id="定位机制：主要对于块级元素来说"><a href="#定位机制：主要对于块级元素来说" class="headerlink" title="定位机制：主要对于块级元素来说"></a>定位机制：主要对于块级元素来说</h5><p>（标准）文档流、脱标流（float、position:absolute）</p>
+<p>float的四个属性：</p>
+<p>float：none	没有浮动</p>
+<p>float：left		左浮动</p>
+<p>float：right	  右浮动</p>
+<p>float：inherit	继承父元素的浮动</p>
+<h3 id="float的特性（重要理解）"><a href="#float的特性（重要理解）" class="headerlink" title="float的特性（重要理解）"></a>float的特性（重要理解）</h3><h5 id="①float的破坏性、崩塌性："><a href="#①float的破坏性、崩塌性：" class="headerlink" title="①float的破坏性、崩塌性："></a>①float的破坏性、崩塌性：</h5><p>父元素div只会被子元素中属于文档流的子元素撑起来，而不会被脱标流子元素撑起</p>
+<h5 id="重要：将子元素设置为浮动后，父元素在没有指定高度的情况下，父元素的高度将不存在，如果想要使父元素具备重新具备高度，可以使用①给父元素手动添加高度，②清除浮动两种方法"><a href="#重要：将子元素设置为浮动后，父元素在没有指定高度的情况下，父元素的高度将不存在，如果想要使父元素具备重新具备高度，可以使用①给父元素手动添加高度，②清除浮动两种方法" class="headerlink" title="重要：将子元素设置为浮动后，父元素在没有指定高度的情况下，父元素的高度将不存在，如果想要使父元素具备重新具备高度，可以使用①给父元素手动添加高度，②清除浮动两种方法"></a>重要：将子元素设置为浮动后，父元素在没有指定高度的情况下，父元素的高度将不存在，如果想要使父元素具备重新具备高度，可以使用①给父元素手动添加高度，②清除浮动两种方法</h5><h5 id="重点-清除浮动方法："><a href="#重点-清除浮动方法：" class="headerlink" title="(重点)清除浮动方法："></a>(重点)清除浮动方法：</h5><h5 id="1、在浮动元素的最后添加clear：both；属性"><a href="#1、在浮动元素的最后添加clear：both；属性" class="headerlink" title="1、在浮动元素的最后添加clear：both；属性"></a>1、在浮动元素的最后添加clear：both；属性</h5><h5 id="2、给父元素添加overflow：hidden；"><a href="#2、给父元素添加overflow：hidden；" class="headerlink" title="2、给父元素添加overflow：hidden；"></a>2、给父元素添加overflow：hidden；</h5><blockquote>
+<p>div在没有设置宽度的情况下，*</p>
+<p><em>他的宽度是上级元素的宽度</em></p>
+<p><em>高度则是div中内容的高度</em></p>
+</blockquote>
+<h5 id="②float的包裹特性"><a href="#②float的包裹特性" class="headerlink" title="②float的包裹特性"></a>②float的包裹特性</h5><p>当div产生了浮动后，div的宽度会自适应里面的内容，产生包裹特性</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span></span><br><span class="line">		demo</span><br><span class="line">	<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.div1</span>&#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">float</span>: left;  --产生包裹特性  但是会比图片高度多出来一点</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">img</span>&#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">vertical-align</span>: bottom;   -- 使用垂直对齐方式 间接改为块级元素，<span class="selector-tag">div</span>会完全包裹图片  </span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;div1&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;image/1.jpg&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h5><p>position：relation相对、absolute绝对、static无定位、fixed固定</p>
+<p>绝对定位：相对自己最近的一个父级元素（容器）的定位  会产生浮动效果 脱离文档流 原位置会被其他div或者文字填充</p>
+<p>相对定位：相对自己本身原来的的位置   会保留之前停留的位置 原位置不会被其他div或者文字填充</p>
+<p>float 和 绝对定位的区别</p>
+<p>绝对定位 和 float 都会让元素脱离文档流</p>
+<p>但是绝对定位会将其他div或者文字元素覆盖</p>
+<p>而float不会覆盖  这就是区别</p>
+<p>z-index: m; 用于设置层叠的次序  数值越大 越靠上  </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">georgexia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/11/05/front/HTML%E4%B8%8ECSS/">http://example.com/2021/11/05/front/HTML%E4%B8%8ECSS/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">georgexia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2021/12/10/front/JS%E5%85%A5%E9%97%A8/" title="JavaScript入门"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JavaScript入门</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/06/20/front/ES6/" title="ES6知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-20</div><div class="title">ES6知识</div></div></a></div><div><a href="/2021/12/10/front/JS%E5%85%A5%E9%97%A8/" title="JavaScript入门"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-10</div><div class="title">JavaScript入门</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">georgexia</div><div class="author-info__description">guard against arrogance</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">welcome to my blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">HTML简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFhtml"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">什么是html</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ctrl-%E5%BF%AB%E9%80%9F%E6%B3%A8%E9%87%8A%E4%B8%80%E8%A1%8C"><span class="toc-number">1.1.</span> <span class="toc-text">ctrl+&#x2F; 快速注释一行</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#html%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">html基本格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E4%BD%93%E6%A0%87%E7%AD%BE"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">字体标签</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AE%B5%E8%90%BD%E6%A0%87%E7%AD%BE"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">段落标签</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%E6%A0%87%E7%AD%BE"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">注释标签</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%87%E9%A2%98%E6%A0%87%E7%AD%BE"><span class="toc-number">0.0.0.1.</span> <span class="toc-text">标题标签</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number"></span> <span class="toc-text">标题1</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#img%E6%A0%87%E7%AD%BE"><span class="toc-number">0.0.0.1.</span> <span class="toc-text">img标签</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC-%E4%B8%AD%E5%8F%AF%E6%B7%BB%E5%8A%A0%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">0.0.0.2.</span> <span class="toc-text">表格 中可添加的属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8%E5%8D%95-%EF%BC%9A%E9%9A%90%E8%97%8F%E7%9A%84%E9%83%A8%E5%88%86-%E5%8F%AF%E4%BB%A5%E6%83%B3%E8%B1%A1%E4%B8%BA%E5%8C%85%E5%9B%B4%E5%90%84%E9%A1%B9%E6%A0%8F%E7%9B%AE%E7%9A%84%E8%99%9A%E6%A1%86-%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8"><span class="toc-number">0.0.0.3.</span> <span class="toc-text">表单 ：隐藏的部分 可以想象为包围各项栏目的虚框 相当于是一个容器 #</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8E%A7%E4%BB%B6%E5%B1%9E%E6%80%A7"><span class="toc-number">0.0.0.4.</span> <span class="toc-text">常用控件属性</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8%EF%BC%88%E7%BE%8E%E5%8C%96%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">CSS层叠样式表（美化）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCSS"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">什么是CSS</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CSS%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">CSS的作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CSS%E6%A0%B7%E5%BC%8F%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">CSS样式文件结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">选择器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B1%BB%EF%BC%88class%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%89%E9%80%89%E6%8B%A9%E5%99%A8-%E5%BF%85%E9%A1%BB%E4%BB%A5-%E5%BC%80%E5%A4%B4"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">类（class选择器）选择器 必须以.开头</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.0.1.</span> <span class="toc-text">背景样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E6%A0%B7%E5%BC%8F%E8%A1%A8"><span class="toc-number">1.0.2.</span> <span class="toc-text">外部样式表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%B1%BB%E6%A0%B7%E5%BC%8F%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.0.3.</span> <span class="toc-text">文本类样式设置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90%E5%B1%9E%E6%80%A7"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">文本对齐属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E5%B1%9E%E6%80%A7%E5%80%BC%E4%BD%9C%E7%94%A8"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">属性			属性值					作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E4%BF%AE%E9%A5%B0%E5%B1%9E%E6%80%A7"><span class="toc-number">1.0.3.3.</span> <span class="toc-text">文本修饰属性</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E4%BD%93%E7%B1%BB%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.0.4.</span> <span class="toc-text">字体类样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.0.5.</span> <span class="toc-text">列表样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E7%9A%84%E6%A0%B7%E5%BC%8F%E5%A4%84%E7%90%86"><span class="toc-number">1.0.6.</span> <span class="toc-text">伪类的样式处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.0.7.</span> <span class="toc-text">伪类选择器样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E7%9A%84%E5%88%86%E7%B1%BB%EF%BC%9A%E7%8A%B6%E6%80%81%E4%BC%AA%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E6%80%A7%E4%BC%AA%E7%B1%BB"><span class="toc-number">1.0.8.</span> <span class="toc-text">伪类的分类：状态伪类和结构性伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E6%80%A7%EF%BC%88%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%89"><span class="toc-number">1.0.8.1.</span> <span class="toc-text">结构性（伪类选择器）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%E9%80%89%E6%8B%A9%E6%95%B4%E4%BD%93-%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8%E9%80%89%E6%8B%A9%E9%83%A8%E5%88%86%EF%BC%89%E4%BD%BF%E7%94%A8%E5%8F%8C%E5%86%92%E5%8F%B7-%E8%AF%86%E5%88%AB"><span class="toc-number">1.0.8.2.</span> <span class="toc-text">伪元素选择器（伪类选择器选择整体  伪元素选择器选择部分）使用双冒号::识别</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.0.9.</span> <span class="toc-text">其他选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CSS%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">1.0.10.</span> <span class="toc-text">CSS选择器的优先级</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css%E6%B5%AE%E5%8A%A8%E6%95%88%E6%9E%9C%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">css浮动效果设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DIV%E7%AE%80%E4%BB%8B"><span class="toc-number">2.0.1.</span> <span class="toc-text">DIV简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDIV"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">什么是DIV</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DIV%E6%A0%B7%E5%BC%8F%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.0.2.</span> <span class="toc-text">DIV样式设置</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%BD%E5%BA%A6%E6%98%AF%E4%B8%8A%E4%B8%80%E7%BA%A7%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E5%BA%A6"><span class="toc-number">2.0.2.0.1.</span> <span class="toc-text">宽度是上一级元素的宽度</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%AB%98%E5%BA%A6%E6%98%AFdiv%E4%B8%AD%E5%86%85%E5%AE%B9%E7%9A%84%E9%AB%98%E5%BA%A6"><span class="toc-number">2.0.2.0.2.</span> <span class="toc-text">高度是div中内容的高度</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#div%E5%9D%97%E5%8C%BA%E5%9F%9F-overflow-%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">div块区域 overflow 属性设置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#div%E5%9D%97%E8%BD%AE%E5%BB%93%EF%BC%88%E8%BE%B9%E6%A1%86%EF%BC%89-outline"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">div块轮廓（边框） outline</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#div%E5%9C%A8%E6%B2%A1%E6%9C%89%E8%AE%BE%E7%BD%AE%E5%AE%BD%E5%BA%A6%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="toc-number">2.0.2.2.1.</span> <span class="toc-text">div在没有设置宽度的情况下</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BB%96%E7%9A%84%E5%AE%BD%E5%BA%A6%E6%98%AF%E4%B8%8A%E7%BA%A7%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E5%BA%A6"><span class="toc-number">2.0.2.2.2.</span> <span class="toc-text">他的宽度是上级元素的宽度</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AB%98%E5%BA%A6%E5%88%99%E6%98%AFdiv%E4%B8%AD%E5%86%85%E5%AE%B9%E7%9A%84%E9%AB%98%E5%BA%A6"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">高度则是div中内容的高度</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%EF%BC%9A%E7%BB%98%E5%88%B6%E5%85%83%E7%B4%A0%E5%91%A8%E5%9B%B4%E7%9A%84%E4%B8%80%E6%9D%A1%E7%BA%BF%EF%BC%8C%E4%BD%8D%E4%BA%8E%E8%BE%B9%E6%A1%86%E8%BE%B9%E7%BC%98%E7%9A%84%E5%A4%96%E5%9B%B4"><span class="toc-number">2.0.2.3.1.</span> <span class="toc-text">作用：绘制元素周围的一条线，位于边框边缘的外围</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%EF%BC%88%E6%94%B9%E5%8F%98%E5%86%85%E5%A4%96%E9%97%B4%E8%B7%9D%EF%BC%89"><span class="toc-number">2.0.3.</span> <span class="toc-text">盒子模型（改变内外间距）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%AE%E5%8A%A8float%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">浮动float（重要）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%8C%E7%BA%A7%E5%85%83%E7%B4%A0%EF%BC%9A%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%E5%92%8C%E5%85%B6%E4%BB%96%E8%A1%8C%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%80%E6%9D%A1%E6%B0%B4%E5%B9%B3%E7%BA%BF%E4%B8%8A%E6%8E%92%E5%88%97%E7%9A%84"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">行级元素：行内元素和其他行元素在一条水平线上排列的</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9D%97%E7%BA%A7%E5%85%83%E7%B4%A0%EF%BC%9A%E5%9C%A8%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E4%BC%9A%E7%8B%AC%E5%8D%A0%E4%B8%80%E8%A1%8C"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">块级元素：在默认情况下，会独占一行</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E6%9C%BA%E5%88%B6%EF%BC%9A%E4%B8%BB%E8%A6%81%E5%AF%B9%E4%BA%8E%E5%9D%97%E7%BA%A7%E5%85%83%E7%B4%A0%E6%9D%A5%E8%AF%B4"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">定位机制：主要对于块级元素来说</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#float%E7%9A%84%E7%89%B9%E6%80%A7%EF%BC%88%E9%87%8D%E8%A6%81%E7%90%86%E8%A7%A3%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">float的特性（重要理解）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%91%A0float%E7%9A%84%E7%A0%B4%E5%9D%8F%E6%80%A7%E3%80%81%E5%B4%A9%E5%A1%8C%E6%80%A7%EF%BC%9A"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">①float的破坏性、崩塌性：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%EF%BC%9A%E5%B0%86%E5%AD%90%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E4%B8%BA%E6%B5%AE%E5%8A%A8%E5%90%8E%EF%BC%8C%E7%88%B6%E5%85%83%E7%B4%A0%E5%9C%A8%E6%B2%A1%E6%9C%89%E6%8C%87%E5%AE%9A%E9%AB%98%E5%BA%A6%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E7%88%B6%E5%85%83%E7%B4%A0%E7%9A%84%E9%AB%98%E5%BA%A6%E5%B0%86%E4%B8%8D%E5%AD%98%E5%9C%A8%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%83%B3%E8%A6%81%E4%BD%BF%E7%88%B6%E5%85%83%E7%B4%A0%E5%85%B7%E5%A4%87%E9%87%8D%E6%96%B0%E5%85%B7%E5%A4%87%E9%AB%98%E5%BA%A6%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E2%91%A0%E7%BB%99%E7%88%B6%E5%85%83%E7%B4%A0%E6%89%8B%E5%8A%A8%E6%B7%BB%E5%8A%A0%E9%AB%98%E5%BA%A6%EF%BC%8C%E2%91%A1%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">重要：将子元素设置为浮动后，父元素在没有指定高度的情况下，父元素的高度将不存在，如果想要使父元素具备重新具备高度，可以使用①给父元素手动添加高度，②清除浮动两种方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E7%82%B9-%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">3.1.0.3.</span> <span class="toc-text">(重点)清除浮动方法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E5%9C%A8%E6%B5%AE%E5%8A%A8%E5%85%83%E7%B4%A0%E7%9A%84%E6%9C%80%E5%90%8E%E6%B7%BB%E5%8A%A0clear%EF%BC%9Aboth%EF%BC%9B%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.0.4.</span> <span class="toc-text">1、在浮动元素的最后添加clear：both；属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E7%BB%99%E7%88%B6%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0overflow%EF%BC%9Ahidden%EF%BC%9B"><span class="toc-number">3.1.0.5.</span> <span class="toc-text">2、给父元素添加overflow：hidden；</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%91%A1float%E7%9A%84%E5%8C%85%E8%A3%B9%E7%89%B9%E6%80%A7"><span class="toc-number">3.1.0.6.</span> <span class="toc-text">②float的包裹特性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D"><span class="toc-number">3.1.0.7.</span> <span class="toc-text">定位</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/12/backend/RabbitMQ/" title="RabbitMQ">RabbitMQ</a><time datetime="2024-01-12T07:39:20.000Z" title="发表于 2024-01-12 15:39:20">2024-01-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/python/django%E5%9B%BD%E9%99%85%E5%8C%96/" title="django-translation插件">django-translation插件</a><time datetime="2023-12-25T06:37:20.000Z" title="发表于 2023-12-25 14:37:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/25/front/ant-design-vue3/" title="ant-design-vue">ant-design-vue</a><time datetime="2023-08-25T09:42:10.000Z" title="发表于 2023-08-25 17:42:10">2023-08-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/25/front/NodeJS/" title="NodeJS知识">NodeJS知识</a><time datetime="2023-06-25T14:17:12.000Z" title="发表于 2023-06-25 22:17:12">2023-06-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/20/front/ES6/" title="ES6知识">ES6知识</a><time datetime="2023-06-20T10:37:10.000Z" title="发表于 2023-06-20 18:37:10">2023-06-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By georgexia</div><div class="footer_custom_text">Hi,  welcome to my blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>NodeJS知识 | georgexia</title><meta name="author" content="georgexia"><meta name="copyright" content="georgexia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Node模块化导入简单使用 12345678910&#x2F;&#x2F; me.js&#x2F;&#x2F; 声明一个函数function tiemo()&#123;    console.log(&quot;我会贴膜...&quot;)&#125;module.exports &#x3D; tiemo;&#x2F;&#x2F; index.jsconst tiemo &#x3D; require(&#x27;.&#x2F;me.js&#x27;);tiemo()  模块暴露数据（m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJS知识">
+<meta property="og:url" content="http://example.com/2023/06/25/front/NodeJS/index.html">
+<meta property="og:site_name" content="georgexia">
+<meta property="og:description" content="Node模块化导入简单使用 12345678910&#x2F;&#x2F; me.js&#x2F;&#x2F; 声明一个函数function tiemo()&#123;    console.log(&quot;我会贴膜...&quot;)&#125;module.exports &#x3D; tiemo;&#x2F;&#x2F; index.jsconst tiemo &#x3D; require(&#x27;.&#x2F;me.js&#x27;);tiemo()  模块暴露数据（m">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpeg">
+<meta property="article:published_time" content="2023-06-25T14:17:12.000Z">
+<meta property="article:modified_time" content="2024-03-16T06:57:40.174Z">
+<meta property="article:author" content="georgexia">
+<meta property="article:tag" content="Node">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/06/25/front/NodeJS/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'NodeJS知识',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-16 14:57:40'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="georgexia"><span class="site-name">georgexia</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">NodeJS知识</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-25T14:17:12.000Z" title="发表于 2023-06-25 22:17:12">2023-06-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-16T06:57:40.174Z" title="更新于 2024-03-16 14:57:40">2024-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E8%83%BD/">前端技能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span></div></div></div><article class="post-content" id="article-container"><h2 id="Node模块化导入"><a href="#Node模块化导入" class="headerlink" title="Node模块化导入"></a>Node模块化导入</h2><p>简单使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// me.js</span></span><br><span class="line"><span class="comment">// 声明一个函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">tiemo</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;我会贴膜...&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = tiemo;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> tiemo = <span class="built_in">require</span>(<span class="string">&#x27;./me.js&#x27;</span>);</span><br><span class="line"><span class="title function_">tiemo</span>()</span><br></pre></td></tr></table></figure>
+
+<p>模块暴露数据（module.exports &#x3D;&#x3D;&#x3D; exports）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// me.js </span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">tiemo</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;我会贴膜...&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">niejiao</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;我会捏脚...&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 暴露数据方式1</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    tiemo,</span><br><span class="line">    niejiao</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 暴露数据方式2</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">niejiao</span> = niejiao</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">tiemo</span> = tiemo</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> me = <span class="built_in">require</span>(<span class="string">&#x27;./me.js&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(me)</span><br><span class="line"></span><br><span class="line">me.<span class="title function_">tiemo</span>();</span><br><span class="line">me.<span class="title function_">niejiao</span>();</span><br></pre></td></tr></table></figure>
+
+<p>导入模块注意事项</p>
+<ul>
+<li>导入自己模块的时候需要写相对路径</li>
+<li>js、json文件导入的时候后缀可以省略</li>
+<li>导入其他类型文件时候会按照js文件处理</li>
+<li>如果导入的路径是个文件夹，那么首先会检测该文件夹下面的package.json文件中main属性对应的文件，如果main属性不存在或者package.json文件不存在，则会尝试导入文件夹下的index.js或者index.json文件，如果还是没找到，就会报错</li>
+<li>导入node.js内置模块时，直接require模块名字即可，无需路径</li>
+</ul>
+<h3 id="CommonJS规范"><a href="#CommonJS规范" class="headerlink" title="CommonJS规范"></a>CommonJS规范</h3><p>module.exports、exports以及require这些都是CommonJS模块化规范的内容，而Node.js是实现了CommonJS模块化规范，二者关系有点想JavaScript和ECMAScript</p>
+<h2 id="包管理工具"><a href="#包管理工具" class="headerlink" title="包管理工具"></a>包管理工具</h2><ul>
+<li>npm（Node Package Manager）（可以使用nrm工具切换镜像源）</li>
+<li>yarn</li>
+<li>cnpm（淘宝搭建的跟npm国内服务，有vpn几乎不考虑，或者更换Npm国内镜像源即可）</li>
+</ul>
+<blockquote>
+<p>安装node后会内置npm包管理工具</p>
+<p>在某个文件夹下面使用npm init 会进行包的初始化，以交互式的方式让我们生成package.json文件</p>
+</blockquote>
+<p>初始化过程中一些注意事项</p>
+<ol>
+<li>Package name（包名）不能使用中文、大写字母，默认值是文件夹的名字，所以文件夹的名字也不能是中文</li>
+<li>version（版本号）要以x.x.x的形式定义，x必须是数字，默认值是1.0.0</li>
+<li>ISC证书与MIT证书功能上是相同的</li>
+<li>package.json可以手动创建或者修改</li>
+<li>使用npm init -y 或者 npm init –yes 极速创建 package.json</li>
+</ol>
+<h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><h4 id="npm下载安装包"><a href="#npm下载安装包" class="headerlink" title="npm下载安装包"></a>npm下载安装包</h4><ul>
+<li>下载安装之前首先需要初始化，也就是文件夹下面必须有package.json文件</li>
+<li>我们需要通过 npm i 和 npm install 来安装包</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式 </span></span><br><span class="line">npm i &lt;包名&gt;</span><br><span class="line">npm install &lt;包名&gt; </span><br></pre></td></tr></table></figure>
+
+<p>运行之后文件夹下会增加两个资源</p>
+<ul>
+<li>node_modules文件夹 存放下载的包</li>
+<li>package-lock.json 包的锁文件，用来锁定包版本</li>
+</ul>
+<h4 id="require导入npm包基本流程"><a href="#require导入npm包基本流程" class="headerlink" title="require导入npm包基本流程"></a>require导入npm包基本流程</h4><ol>
+<li>在当前文件夹下的node_modules中寻找同名的文件夹</li>
+<li>在上级目录中的node_modules中寻找同名文件夹、直至找到磁盘根目录</li>
+</ol>
+<h4 id="开发依赖、生产依赖"><a href="#开发依赖、生产依赖" class="headerlink" title="开发依赖、生产依赖"></a>开发依赖、生产依赖</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>命令</th>
+<th>补充</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>生产依赖</td>
+<td>npm i -S jquery<br />npm i -save jquery</td>
+<td>-S 等效与save，-S是默认选项<br />包信息保存在package.json中的dependencies属性中</td>
+</tr>
+<tr>
+<td>开发依赖</td>
+<td>npm i -D less<br />npm i –save-dev less</td>
+<td>-D 等效与 –save-dev<br />包信息保存在package.json中的devDependencies属性中</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生产依赖</span></span><br><span class="line">npm i jquery</span><br><span class="line">npm i -S jquery </span><br><span class="line"></span><br><span class="line"><span class="comment">// 开发依赖</span></span><br><span class="line">npm i -D less   </span><br></pre></td></tr></table></figure>
+
+<h4 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h4><p>可以根据-g参数进行全局安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g nodemon</span><br></pre></td></tr></table></figure>
+
+<p>全局安装完成之后就可以在命令行的任何位置运行nodemon参数</p>
+<p>该命令的作用是自动重启node应用程序</p>
+<blockquote>
+<ul>
+<li>全局安装不受工作目录位置影响</li>
+<li>可以通过 npm root -g 来查看全局安装的位置</li>
+<li>不是所有的包都适合进行全局安装</li>
+</ul>
+</blockquote>
+<h4 id="安装包依赖"><a href="#安装包依赖" class="headerlink" title="安装包依赖"></a>安装包依赖</h4><p>在项目协作中常用命令是 npm i，该命令可以根据package.json、package-lock.json的依赖声明安装所有的项目依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm i </span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>node_modules文件夹大多数情况下不会放入版本库</p>
+</blockquote>
+<h4 id="安装指定版本的包"><a href="#安装指定版本的包" class="headerlink" title="安装指定版本的包"></a>安装指定版本的包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i jquery@1.11.2</span><br></pre></td></tr></table></figure>
+
+<p>删除包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm remove jquery</span><br><span class="line">npm r jquery</span><br></pre></td></tr></table></figure>
+
+<h4 id="npm-配置命令别名"><a href="#npm-配置命令别名" class="headerlink" title="npm 配置命令别名"></a>npm 配置命令别名</h4><p>通过配置命令别名可以更简单的执行命令</p>
+<p>配置package.json中的scripts属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;server&quot;</span>: <span class="string">&quot;node server.js&quot;</span>,</span><br><span class="line">    <span class="string">&quot;start&quot;</span>: <span class="string">&quot;node index.js&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置命令之后，可以使用别名执行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm run server</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
+
+<p>不过start比较特别，使用时可以省略run</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>补充说明</p>
+<ul>
+<li>npm start 是项目中常用的命令，一般用来启动项目</li>
+<li>npm run 有自动向上级目录查找的特性，跟require函数一样</li>
+<li>对于陌生的项目，可以通过查看scripts属性参考项目操作</li>
+</ul>
+</blockquote>
+<h3 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h3><blockquote>
+<p>facebook开发的包管理工具，速度更快</p>
+</blockquote>
+<p>通过全局npm 安装 yarn</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先 安装yarn</span></span><br><span class="line">npm i -g yarn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用yarn 初始化package.json文件</span></span><br><span class="line">yarn init</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用yarn安装包</span></span><br><span class="line">yarn add jquery</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动命令</span></span><br><span class="line">yarn start == npm run start</span><br><span class="line">yarn server = npm run server</span><br><span class="line"></span><br><span class="line"><span class="comment"># yarn全局安装包路径</span></span><br><span class="line">yarn <span class="keyword">global</span> <span class="built_in">bin</span> </span><br></pre></td></tr></table></figure>
+
+<h4 id="yarn配置镜像"><a href="#yarn配置镜像" class="headerlink" title="yarn配置镜像"></a>yarn配置镜像</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn config set registry ....</span><br></pre></td></tr></table></figure>
+
+<p>可以通过 yarn config list 查看yarn配置项、</p>
+<h4 id="npm和yarn选择"><a href="#npm和yarn选择" class="headerlink" title="npm和yarn选择"></a>npm和yarn选择</h4><p>根据不同的场景进行选择</p>
+<ol>
+<li>个人项目，根据喜好选择</li>
+<li>公司项目，根据项目代码来选择<ul>
+<li>npm锁文件为package.lock.json</li>
+<li>yarn锁文件为yarn.lock</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>包管理工具不要混用、不要混用、不要混用</p>
+</blockquote>
+<h2 id="Webpack打包工具"><a href="#Webpack打包工具" class="headerlink" title="Webpack打包工具"></a>Webpack打包工具</h2><h3 id="为什么需要打包工具？"><a href="#为什么需要打包工具？" class="headerlink" title="为什么需要打包工具？"></a>为什么需要打包工具？</h3><p>开发时，我们会使用框架（React、vue），ES6模块化语法，Less、Sass等css预处理器等语法进行开发</p>
+<p>这样的代码想要在浏览器运行必须经过编译成浏览器能够识别的js、css等语法才能运行</p>
+<p>所以需要打包工具来帮助我们完成这些事。</p>
+<p>除此之外，打包工具还能够压缩代码、做兼容性处理、提高代码性能等</p>
+<h3 id="有哪些打包工具"><a href="#有哪些打包工具" class="headerlink" title="有哪些打包工具"></a>有哪些打包工具</h3><ul>
+<li>Grunt</li>
+<li>Gulp</li>
+<li>Parcel</li>
+<li>Webpack</li>
+<li>Rollup</li>
+<li>Vite</li>
+<li>…</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">georgexia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/06/25/front/NodeJS/">http://example.com/2023/06/25/front/NodeJS/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">georgexia</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Node/">Node</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/25/front/ant-design-vue3/" title="ant-design-vue"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ant-design-vue</div></div></a></div><div class="next-post pull-right"><a href="/2023/06/20/front/ES6/" title="ES6知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ES6知识</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">georgexia</div><div class="author-info__description">guard against arrogance</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">welcome to my blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Node%E6%A8%A1%E5%9D%97%E5%8C%96%E5%AF%BC%E5%85%A5"><span class="toc-number">1.</span> <span class="toc-text">Node模块化导入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS%E8%A7%84%E8%8C%83"><span class="toc-number">1.1.</span> <span class="toc-text">CommonJS规范</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-number">2.</span> <span class="toc-text">包管理工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#npm"><span class="toc-number">2.1.</span> <span class="toc-text">npm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#npm%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">2.1.1.</span> <span class="toc-text">npm下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#require%E5%AF%BC%E5%85%A5npm%E5%8C%85%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.2.</span> <span class="toc-text">require导入npm包基本流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E4%BE%9D%E8%B5%96%E3%80%81%E7%94%9F%E4%BA%A7%E4%BE%9D%E8%B5%96"><span class="toc-number">2.1.3.</span> <span class="toc-text">开发依赖、生产依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.4.</span> <span class="toc-text">全局安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85%E4%BE%9D%E8%B5%96"><span class="toc-number">2.1.5.</span> <span class="toc-text">安装包依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8C%87%E5%AE%9A%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%85"><span class="toc-number">2.1.6.</span> <span class="toc-text">安装指定版本的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#npm-%E9%85%8D%E7%BD%AE%E5%91%BD%E4%BB%A4%E5%88%AB%E5%90%8D"><span class="toc-number">2.1.7.</span> <span class="toc-text">npm 配置命令别名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yarn"><span class="toc-number">2.2.</span> <span class="toc-text">yarn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#yarn%E9%85%8D%E7%BD%AE%E9%95%9C%E5%83%8F"><span class="toc-number">2.2.1.</span> <span class="toc-text">yarn配置镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#npm%E5%92%8Cyarn%E9%80%89%E6%8B%A9"><span class="toc-number">2.2.2.</span> <span class="toc-text">npm和yarn选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Webpack%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7"><span class="toc-number">3.</span> <span class="toc-text">Webpack打包工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">为什么需要打包工具？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7"><span class="toc-number">3.2.</span> <span class="toc-text">有哪些打包工具</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/12/backend/RabbitMQ/" title="RabbitMQ">RabbitMQ</a><time datetime="2024-01-12T07:39:20.000Z" title="发表于 2024-01-12 15:39:20">2024-01-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/25/python/django%E5%9B%BD%E9%99%85%E5%8C%96/" title="django-translation插件">django-translation插件</a><time datetime="2023-12-25T06:37:20.000Z" title="发表于 2023-12-25 14:37:20">2023-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/25/front/ant-design-vue3/" title="ant-design-vue">ant-design-vue</a><time datetime="2023-08-25T09:42:10.000Z" title="发表于 2023-08-25 17:42:10">2023-08-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/25/front/NodeJS/" title="NodeJS知识">NodeJS知识</a><time datetime="2023-06-25T14:17:12.000Z" title="发表于 2023-06-25 22:17:12">2023-06-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/20/front/ES6/" title="ES6知识">ES6知识</a><time datetime="2023-06-20T10:37:10.000Z" title="发表于 2023-06-20 18:37:10">2023-06-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By georgexia</div><div class="footer_custom_text">Hi,  welcome to my blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>
